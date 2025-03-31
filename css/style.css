@@ -25,7 +25,7 @@
 
 @font-face {
   font-family: "Rightous";
-  src: url(../fonts/Righteous-Regular.ttf);
+  src: url(../fonts/RighteousRegular.ttf);
 }
 @font-face {
   font-family: "LINESeedKR-Bd";
@@ -162,15 +162,13 @@ select {
 }
 
 #header li > a:hover {
-  line-height: 3.56em;
-  font-size: 22px;
   color: rgba(255, 124, 42, 0.8);
 }
 
 #header .nav_logo a {
   width: 50px;
   height: 50px;
-  background: url(../img/LOGO_50.png);
+  background: url(../img/Logo_50.png);
 }
 
 #header .nav_site {
@@ -187,7 +185,7 @@ select {
   margin-left: 10px;
   width: 12px;
   height: 11px;
-  background: url(../img/svg_line_arrow_down.svg);
+  background: url(../img/SvgDown.svg);
   transition: 0.5s;
 }
 
@@ -206,10 +204,14 @@ select {
   font-family: "Gyeonggi_Batang_Regular";
   font-weight: 600;
   border-radius: 10px;
-  background: rgba(255, 100, 10, 0.788);
+  background: rgba(255, 255, 255, 0.788);
   border: none;
   cursor: pointer;
   color: #252525b7;
+  transition: 500ms;
+}
+#header .nav_loginbutton:hover {
+  color: rgba(255, 124, 42, 0.8);
 }
 
 #header .nav_word {
@@ -263,15 +265,14 @@ select {
   font-size: 15px;
   font-family: "yoonT";
   border-radius: 10px;
-  background: rgba(255, 100, 10, 0.788);
-  border: 1px solid rgba(252, 215, 215, 0.8);
+  background: rgba(255, 255, 255, 0.788);
+  border: none;
   cursor: pointer;
   color: #252525b7;
   font-weight: 600;
 }
 .dropdown_btn:hover {
-  background: rgba(255, 100, 10, 0.788);
-  color: rgb(34, 34, 34);
+  color: rgba(255, 124, 42, 0.8);
 }
 
 .nav_dropdown {
@@ -309,117 +310,3 @@ select {
   background-color: #00000067;
   text-shadow: 0 0 5px white;
 }
-
-/* .footer {
-  padding-top: 20px;
-  width: 100%;
-  height: 200px;
-  background-color: #f0f0f0;
-  font-family: "yoonT", "돋움", dotum, sans-serif;
-}
-
-.footerdiv2 {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  margin: 0px auto;
-  width: 1000px;
-}
-.footerdiv3 {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  margin: 0px auto;
-  width: 1000px;
-}
-.footerspantype_1 {
-  color: black;
-  font-size: 13px;
-}
-.footerspantype_2 {
-  font-size: 13.5px;
-  color: rgba(71, 71, 71, 0.315);
-}
-.anchor_no {
-  pointer-events: none;
-}
-.footerbold {
-  font-weight: bold;
-}
-.footerdiv4 {
-  padding-top: 20px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  margin: 0px auto;
-  width: 1000px;
-}
-.footerdiv4 span {
-  font-size: 12px;
-  padding: 0 6px 0 0;
-  color: #888;
-  text-align: left;
-}
-.footerdiv4 .footerbold {
-  font-size: 12px;
-  padding: 0 6px 0 0;
-  color: #1a1919;
-  text-align: left;
-  font-weight: normal;
-}
-.footerdiv5 {
-  padding-top: 6px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  margin: 0px auto;
-  width: 1000px;
-}
-.footerdiv5 span {
-  font-size: 12px;
-  color: #888;
-  text-align: left;
-  font-weight: 700;
-}
-.footerdiv6 {
-  position: relative;
-  padding-top: 20px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  margin: 0px auto;
-  width: 1000px;
-}
-.footerdiv6 span {
-  font-size: 14px;
-  color: #5c5a5a;
-  text-align: left;
-  font-weight: bold;
-  margin-right: 15px;
-  line-height: 46px;
-}
-#footerimg1 {
-  width: 46px;
-  height: auto;
-  margin-right: 15px;
-}
-#footerimg2 {
-  width: 46px;
-  height: auto;
-  margin-right: 15px;
-}
-.footerdiv7 {
-  position: absolute;
-  right: 20px;
-  bottom: 0px;
-}
-.footerdiv7 a img {
-  margin-right: 8px;
-}
-
-@media screen and (max-width: 1281px) {
-  #header .nav_dropdown {
-    top: 26.5%;
-    left: 83%;
-  }
-} */
