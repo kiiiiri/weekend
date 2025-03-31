@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>기사 페이지</title>
+    <link rel="stylesheet" href="css/news.css">
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="navbar">
+         <div class="navbar_container">
+    </div>
+    </nav>  
+
+    <!-- 메인 사진 -->
+    <div class="photo_container">
+      <div class="photo">
+        <!-- 이미지가 JavaScript로 동적으로 추가됨 -->
+      </div>
+      <!-- 오른쪽 아래에 배치될 버튼들 -->
+      <div class="button-container">
+        <button>수정</button>
+        <button>삭제</button>
+      </div>
+      <!-- 조회수 표시 -->
+      <div class="view-count">
+        조회수: <span id="view-count">0</span>
+      </div>
+    </div>
+    
+    <!-- 기사 제목과 내용은 여기에 추가 -->
+    <div class="article-content">
+      <h2 class="article-title"></h2>
+      <p class="article-description"></p>
+    </div>
+
+    <script src="js/news.js"></script>
+</body>
+</html>
