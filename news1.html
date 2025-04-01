@@ -4,31 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>기사 페이지</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="css/news.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/nav.js"></script>
 </head>
 <body>
-    <!-- 네비게이션 바 -->
-    <nav class="navbar">
-         <div class="navbar_container">
-    </div>
-    </nav>  
+    <!-- 사이트 제목 -->
+    <div class="site_title">WEEKEND</div>
 
+    <!-- 네비게이션 바 -->
+    <nav id="header">
+      <!-- 네비게이션 바 : 파라솔 로고 & 사이트 이름 -->
+      <li class="nav nav_logo"><a href="lk.html"></a></li>
+      <div class="nav_word">WEEKEND</div>
+
+      <!-- 네비게이션 바 : 웹진 & 커뮤니티 -->
+      <ul class="nav_item">
+        <li class="nav nav_li">
+          <a href="#">웹진</a>
+        </li>
+        <li class="nav nav_li">
+          <a href="#">커뮤니티</a>
+        </li>
+      </ul>
+
+      <!-- 비로그인 시 : 로그인 & 회원가입 -->
+      <button class="nav_loginbutton"><a href="#">로그인/회원가입</a></button>
+    </nav>
     <!-- 메인 사진 -->
     <div class="photo_container">
       <div class="photo">
         <!-- 이미지가 JavaScript로 동적으로 추가됨 -->
       </div>
-      <!-- 오른쪽 아래에 배치될 버튼들 -->
-      <div class="button-container">
-        <button>수정</button>
-        <button>삭제</button>
-      </div>
-      <!-- 조회수 표시 -->
-      <div class="view-count">
-        조회수: <span id="view-count">0</span>
-      </div>
-    </div>
-    
+      
     <!-- 기사 제목과 내용은 여기에 추가 -->
     <div class="article-content">
       <h2 class="article-title"></h2>
