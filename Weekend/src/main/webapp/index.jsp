@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h2>page1 ...</h2>
-	<a href="<%= request.getContextPath() %>/community/list.do">게시판 목록으로 이동</a>
+	<a href="<%= request.getContextPath() %>/webzine/list.do">메인 화면으로 이동</a>
 </body>
 </html>

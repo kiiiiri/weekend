@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="webzine_writebutton_wrap">
-		<button class="webzine_writebutton">기사 작성하기</button>
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/webzine/wwrite.do'" class="webzine_writebutton">기사 작성하기</button>
 		</div>
     </div>
     

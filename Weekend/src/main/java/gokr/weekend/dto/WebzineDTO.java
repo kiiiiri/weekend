@@ -9,7 +9,7 @@ public class WebzineDTO {
     private Number wviewcount;
     private String wofile;
     private String wsfile;
-    private Number uno;
+    private String uno;
     
     
     public String getWno() {
@@ -54,10 +54,10 @@ public class WebzineDTO {
 	public void setWsfile(String wsfile) {
 		this.wsfile = wsfile;
 	}
-	public Number getUno() {
+	public String getUno() {
 		return uno;
 	}
-	public void setUno(Number uno) {
+	public void setUno(String uno) {
 		this.uno = uno;
 	}
 
