@@ -35,20 +35,20 @@ public class WebzineDAO extends DBConnPool{
 			public List<WebzineDTO> selectListPage(Map<String,Object> map) {
 		        List<WebzineDTO> board = new Vector<WebzineDTO>();
 		        String query = " "
-		                     + "SELECT * FROM ( "
-		                     + "    SELECT Tb.*, ROWNUM rNum FROM ( "
-		                     + "        SELECT * FROM WEBZINE ";
+		        	    + "SELECT * FROM ( "
+		        	    + "    SELECT Tb.*, ROWNUM rNum FROM ( "
+		        	    + "        SELECT w.*, s.nickname FROM WEBZINE w "
+		        	    + "        JOIN SITEMEMBER s ON w.uno = s.uno ";
 
-		        if (map.get("searchWord") != null)
-		        {
+		        if (map.get("searchWord") != null) {
 		            query += " WHERE " + map.get("searchField")
 		                   + " LIKE '%" + map.get("searchWord") + "%' ";
 		        }
 
-		        query += "        ORDER BY wno DESC "
-		               + "    ) Tb "
-		               + " ) "
-		               + " WHERE rNum BETWEEN ? AND ?";
+		        query += "        ORDER BY w.wno DESC "
+		        	       + "    ) Tb "
+		        	       + " ) "
+		        	       + " WHERE rNum BETWEEN ? AND ?";
 
 		        try {
 		            psmt = con.prepareStatement(query);
@@ -64,10 +64,10 @@ public class WebzineDAO extends DBConnPool{
 		                dto.setWtext(rs.getString(3));
 		                dto.setWwdate(rs.getDate(4));
 		                dto.setWviewcount(rs.getInt(5));
-		                dto.setUno(rs.getString(6));
-		                dto.setWofile(rs.getString(7));
-		                dto.setWsfile(rs.getString(8));
-		                
+		                dto.setWofile(rs.getString(6));
+		                dto.setWsfile(rs.getString(7));	
+		                dto.setUno(rs.getString(8));
+		                dto.setNickname(rs.getString(9));
 		                board.add(dto);
 		            }
 		        }
@@ -82,15 +82,15 @@ public class WebzineDAO extends DBConnPool{
 		        int result = 0;
 		        try {
 		            String query = "INSERT INTO WEBZINE ( "
-		                         + " wno, wtitle, wtext, wofile, wsfile) "
+		                         + " wno, wtitle, wtext, wofile, wsfile, uno) "
 		                         + " VALUES ( "
-		                         + " seq_board_num.NEXTVAL,?,?,?,?)";
+		                         + " seq_board_num.NEXTVAL,?,?,?,?,?)";
 		            psmt = con.prepareStatement(query);
 		            psmt.setString(1, dto.getWtitle());
 		            psmt.setString(2, dto.getWtext());
 		            psmt.setString(3, dto.getWofile());
 		            psmt.setString(4, dto.getWsfile());
-//		            psmt.setString(5, dto.getUno());
+		            psmt.setString(5, dto.getUno());
 		            result = psmt.executeUpdate();
 		        }
 		        catch (Exception e) {

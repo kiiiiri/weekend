@@ -10,7 +10,7 @@ public class WebzineDTO {
     private String wofile;
     private String wsfile;
     private String uno;
-    
+    private String nickname;
     
     public String getWno() {
 		return wno;
@@ -59,6 +59,13 @@ public class WebzineDTO {
 	}
 	public void setUno(String uno) {
 		this.uno = uno;
+	}
+	public String getNickname() {
+	    return nickname;
+	}
+
+	public void setNickname(String nickname) {
+	    this.nickname = nickname;
 	}
 
 }

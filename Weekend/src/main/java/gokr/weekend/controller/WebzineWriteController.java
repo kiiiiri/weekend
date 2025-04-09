@@ -1,5 +1,6 @@
 package gokr.weekend.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -48,6 +49,7 @@ public class WebzineWriteController extends HttpServlet {
         // 업로드 디렉터리의 물리적 경로 확인
         String saveDirectory = req.getServletContext().getRealPath("/Uploads");
         System.out.println(saveDirectory);        
+
         // 파일 업로드
         String originalFileName = "";
         try {
@@ -62,10 +64,10 @@ public class WebzineWriteController extends HttpServlet {
         // 2. 파일 업로드 외 처리 =============================
         // 폼값을 DTO에 저장
         WebzineDTO dto = new WebzineDTO(); 
-//        dto.setName(req.getParameter("name"));
         dto.setWtitle(req.getParameter("wtitle"));
         dto.setWtext(req.getParameter("wtext"));
 //        dto.setUno(req.getParameter("uno"));
+        dto.setUno("21"); //나중에 수정 후 삭제 바랍니다.
 
         // 원본 파일명과 저장된 파일 이름 설정
         if (originalFileName != "") { 

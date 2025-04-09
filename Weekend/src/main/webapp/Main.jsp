@@ -63,22 +63,28 @@
         <span class="webzine_title_sub">알지 못했던 곳으로 여행을 떠나보세요.</span>
       </div>
       
-      <!-- 페이지 기사 1 -->
-      <div class="recentwebzine_contents">
-      
-        <div class="contents_left">
-          <div class="thumbnail">
-            <a href="#"><img src="" alt="페이지 기사1 사진" /></a>
-          </div>
-        </div>
-
-        <div class="contents_right">
-          <a href="#"><h2>역사와 문화의 고장 경주</h2></a>
-          <p class="webzine_date">2025-04-07</p>
-          <p class="webzine_writer">대한민국구석구석 SNS</p>
-          <a href="#" class="webzine_link">상세보기 &gt;</a>
-        </div>
+      <!-- 기사 목록 -->
+<c:forEach var="row" items="${boardLists}">
+  <div class="recentwebzine_contents">
+  
+    <div class="contents_left">
+      <div class="thumbnail">
+        <a href="${pageContext.request.contextPath}/webzine/view.do?wno=${row.wno}">
+          <img src="${pageContext.request.contextPath}/Uploads/${row.wsfile}" />
+        </a>
       </div>
+    </div>
+
+    <div class="contents_right">
+      <a href="${pageContext.request.contextPath}/webzine/view.do?wno=${row.wno}">
+        <h2>${row.wtitle}</h2>
+      </a>
+      <p class="webzine_date">${row.wwdate}</p>
+      <p class="webzine_writer">${row.nickname}</p>
+      <a href="${pageContext.request.contextPath}/webzine/view.do?wno=${row.wno}" class="webzine_link">상세보기 &gt;</a>
+    </div>
+  </div>
+</c:forEach>
       <div class="webzine_writebutton_wrap">
 		<button type="button" onclick="location.href='${pageContext.request.contextPath}/webzine/wwrite.do'" class="webzine_writebutton">기사 작성하기</button>
 		</div>
