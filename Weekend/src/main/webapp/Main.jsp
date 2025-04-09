@@ -56,7 +56,10 @@
         <span class="webzine_title_main">최신 기사</span><br />
         <span class="webzine_title_sub">알지 못했던 곳으로 여행을 떠나보세요.</span>
       </div>
-      
+      <div class="webzine_writebutton_wrap">
+		<button type="button" onclick="location.href='${pageContext.request.contextPath}/webzine/wwrite.do'" class="webzine_writebutton">기사 작성하기</button>
+		</div>
+		
       <!-- 기사 목록 -->
 <c:forEach var="row" items="${boardLists}">
   <div class="recentwebzine_contents">
@@ -79,10 +82,12 @@
     </div>
   </div>
 </c:forEach>
-      <div class="webzine_writebutton_wrap">
-		<button type="button" onclick="location.href='${pageContext.request.contextPath}/webzine/wwrite.do'" class="webzine_writebutton">기사 작성하기</button>
-		</div>
+      <div id="loading" style="display: none; text-align:center; margin:20px;">
+  <img src="<%=contextPath%>/img/loading.gif" alt="로딩 중..." />
+</div>
     </div>
     
+    <!-- 무한 스크롤 기사 불러오기 -->
+    <script src="<%=contextPath%>/js/InfiniteScroll.js"></script>
 </body>
 </html>
