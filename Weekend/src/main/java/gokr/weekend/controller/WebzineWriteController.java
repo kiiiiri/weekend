@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fileupload.FileUtil;
 import gokr.weekend.dao.WebzineDAO;
+import gokr.weekend.dto.UserVO;
 import gokr.weekend.dto.WebzineDTO;
 import utils.JSFunction;
 
@@ -62,12 +64,20 @@ public class WebzineWriteController extends HttpServlet {
 		}
 
         // 2. 파일 업로드 외 처리 =============================
+        // 세션에서 로그인 사용자 정보 가져오기
+        HttpSession session = req.getSession();
+        UserVO loginUser = (UserVO) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            JSFunction.alertLocation(resp, "로그인이 필요합니다.", "../login.do");
+            return;
+        }
+        
         // 폼값을 DTO에 저장
         WebzineDTO dto = new WebzineDTO(); 
         dto.setWtitle(req.getParameter("wtitle"));
         dto.setWtext(req.getParameter("wtext"));
-//        dto.setUno(req.getParameter("uno"));
-        dto.setUno("21"); //나중에 수정 후 삭제 바랍니다.
+        dto.setUno(String.valueOf(loginUser.getUno()));
 
         // 원본 파일명과 저장된 파일 이름 설정
         if (originalFileName != "") { 

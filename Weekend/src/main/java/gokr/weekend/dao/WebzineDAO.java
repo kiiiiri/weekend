@@ -99,4 +99,48 @@ public class WebzineDAO extends DBConnPool{
 		        }
 		        return result;
 		    }
+		    
+		 // 주어진 일련번호에 해당하는 게시물을 DTO에 담아 반환합니다.
+		    public WebzineDTO selectView(String wno) {
+		    	WebzineDTO dto = new WebzineDTO();  // DTO 객체 생성
+		        String query = "SELECT * FROM WEBZINE WHERE wno=?";  // 쿼리문 템플릿 준비
+		        try {
+		            psmt = con.prepareStatement(query);  // 쿼리문 준비
+		            psmt.setString(1, wno);  // 인파라미터 설정
+		            rs = psmt.executeQuery();  // 쿼리문 실행
+
+		            if (rs.next()) {  // 결과를 DTO 객체에 저장
+		                dto.setWno(rs.getString(1));
+		                dto.setWtitle(rs.getString(2));
+		                dto.setWtext(rs.getString(3));
+		                dto.setWwdate(rs.getDate(4));
+		                dto.setWviewcount(rs.getInt(5));
+		                dto.setWofile(rs.getString(6));
+		                dto.setWsfile(rs.getString(7));
+		                dto.setUno(rs.getString(8));
+		            }
+		        }
+		        catch (Exception e) {
+		            System.out.println("게시물 상세보기 중 예외 발생");
+		            e.printStackTrace();
+		        }
+		        return dto;  // 결과 반환
+		    }
+
+		    // 주어진 일련번호에 해당하는 게시물의 조회수를 1 증가시킵니다.
+		    public void updateVisitCount(String wno) {
+		        String query = "UPDATE WEBZINE SET "
+		                     + " wviewcount=wviewcount+1 "
+		                     + " WHERE wno=?"; 
+		        try {
+		            psmt = con.prepareStatement(query);
+		            psmt.setString(1, wno);
+		            psmt.executeQuery();
+		        }
+		        catch (Exception e) {
+		            System.out.println("게시물 조회수 증가 중 예외 발생");
+		            e.printStackTrace();
+		        }
+		    }
+		    
 }

@@ -25,37 +25,31 @@
       <div class="title_logo"><a href="#"></a></div>
       <div class="title_wrap">WEEKEND</div>
     </div>
-	<jsp:include page="Header.jsp"/> 
+    <!-- 네비게이션 바 (비로그인/로그인) -->
+    <c:choose>
+  <c:when test="${not empty sessionScope.loginUser}">
+    <jsp:include page="Header2.jsp" />
+  </c:when>
+  <c:otherwise>
+    <jsp:include page="Header.jsp" />
+  </c:otherwise>
+</c:choose>
 	
-    <!-- Swiper 구조 -->
-    <div class="swiper">
-      <div class="swiper-wrapper">
+<!-- Swiper 구조 -->
+<div class="swiper">
+  <div class="swiper-wrapper">
+    <c:forEach var="row" items="${boardLists}" varStatus="status">
+      <c:if test="${status.index < 6}">
         <div class="swiper-slide">
-          <img src="" alt="swiper_img1" />
-          <div class="overlay-text"><a href="#">testimg 1</a></div>
+          <a href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}">
+            <img src="${pageContext.request.contextPath}/Uploads/${row.wsfile}" alt="swiper_img${status.index + 1}" />
+            <div class="overlay-text">${row.wtitle}</div>
+          </a>
         </div>
-        <div class="swiper-slide">
-          <img src="" alt="swiper_img2" />
-          <div class="overlay-text"><a href="#">testimg 2</a></div>
-        </div>
-        <div class="swiper-slide">
-          <img src="" alt="swiper_img3""/>
-          <div class="overlay-text"><a href="#">testimg 3</a></div>
-        </div>
-        <div class="swiper-slide">
-          <img src="" alt="swiper_img4" />
-          <div class="overlay-text"><a href="#">역사와 문화의 고장 경주</a></div>
-        </div>
-        <div class="swiper-slide">
-          <img src="" alt="swiper_img5" />
-          <div class="overlay-text"><a href="#">외국인 친구에게 꼭 추천해주고 싶은 지역관광 안테나숍 '트립집'</a></div>
-        </div>
-        <div class="swiper-slide">
-          <img src="" alt="swiper_img6" />
-          <div class="overlay-text"><a href="#">가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차가나다라마바사아자차</a></div>
-        </div>
-      </div>
-    </div>
+      </c:if>
+    </c:forEach>
+  </div>
+</div>
         <!-- 최신 기사 소개 컨테이너 -->
     <div id="recentwebzine_container">
       <div id="recentwebzine_title">
@@ -69,19 +63,19 @@
   
     <div class="contents_left">
       <div class="thumbnail">
-        <a href="${pageContext.request.contextPath}/webzine/view.do?wno=${row.wno}">
+        <a href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}">
           <img src="${pageContext.request.contextPath}/Uploads/${row.wsfile}" />
         </a>
       </div>
     </div>
 
     <div class="contents_right">
-      <a href="${pageContext.request.contextPath}/webzine/view.do?wno=${row.wno}">
+      <a href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}">
         <h2>${row.wtitle}</h2>
       </a>
       <p class="webzine_date">${row.wwdate}</p>
       <p class="webzine_writer">${row.nickname}</p>
-      <a href="${pageContext.request.contextPath}/webzine/view.do?wno=${row.wno}" class="webzine_link">상세보기 &gt;</a>
+      <a href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}" class="webzine_link">상세보기 &gt;</a>
     </div>
   </div>
 </c:forEach>

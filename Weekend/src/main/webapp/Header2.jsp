@@ -23,8 +23,14 @@
         </li>
       </ul>
 
-      <!-- 비로그인 시 : 로그인 & 회원가입 -->
-      <button class="nav_loginbutton"><a href="<%= request.getContextPath() %>/login.do">로그인/회원가입</a></button>
+      <!-- 네비게이션 바 : 로그인 시 : 내 정보 탭 -->
+      <div class="nav nav_site">
+        <button id="drop_btn" class="dropdown_btn"><span class="namespan">${sessionScope.loginUser.nickname}&nbsp님</span></button>
+        <div id="drop_menu" class="nav_dropdown">
+          <a href="#">내 정보 수정</a>
+          <a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
+        </div>
+      </div>
     </nav>
 </body>
 </html>
