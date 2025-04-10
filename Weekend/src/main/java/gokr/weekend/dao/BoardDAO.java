@@ -1,5 +1,6 @@
 package gokr.weekend.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -12,72 +13,52 @@ public class BoardDAO extends DBConnPool {
 			super();
 		}
 		
-		//검색 시 조건 충족 게시글 개수 반환
-		public int selectCount(Map<String, Object> map) {
-			int totalCount =0;
-			String query = "SELECT COUNT(*) FROM community";
-			if (map.get("searchWord") != null) {
-					query += " WHERE " + map.get("searchField") + " "
-							+ " LIKE '%" + map.get("searchWord") + "%'";
-			} try { 
-				stmt = con.createStatement();
-				rs = stmt.executeQuery(query);
-				rs.next();
-				totalCount = rs.getInt(1);
-			} catch (Exception e) {
-				System.out.println("게시글 개수 카운팅 중 오류 발생..");
-				e.printStackTrace();
-			}
-			return totalCount;
-		} 
+		//게시물 수 조회
+		public int selectCount() {
+		    int totalCount = 0;
+		    String sql = "SELECT COUNT(*) FROM Community";
+		    try {
+		        psmt = con.prepareStatement(sql);
+		        rs = psmt.executeQuery();
+		        if (rs.next()) {
+		            totalCount = rs.getInt(1);
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return totalCount;
+		}
 		
-		//검색 조건에 맞는 게시물 목록을 반환(+페이징.)
-		public List<BoardDTO> selectListPage(Map<String,Object> map) {
-	        List<BoardDTO> board = new Vector<BoardDTO>();
-	        String query = " "
-	                     + "SELECT * FROM ( "
-	                     + "    SELECT Tb.*, ROWNUM rNum FROM ( "
-	                     + "        SELECT * FROM COMMUNITY ";
+		//게시물 목록 조회
+		public List<BoardDTO> selectListPage(int start, int end) {
+		    List<BoardDTO> list = new ArrayList<>();
+		    String sql = "SELECT * FROM ( "
+		               + "SELECT Tb.*, ROWNUM rNum FROM ( "
+		               + "SELECT * FROM Community ORDER BY cno DESC "
+		               + ") Tb "
+		               + ") WHERE rNum BETWEEN ? AND ?";
 
-	        if (map.get("searchWord") != null)
-	        {
-	            query += " WHERE " + map.get("searchField")
-	                   + " LIKE '%" + map.get("searchWord") + "%' ";
-	        }
+		    try {
+		        psmt = con.prepareStatement(sql);
+		        psmt.setInt(1, start);
+		        psmt.setInt(2, end);
+		        rs = psmt.executeQuery();
 
-	        query += "        ORDER BY cno DESC "
-	               + "    ) Tb "
-	               + " ) "
-	               + " WHERE rNum BETWEEN ? AND ?";
-
-	        try {
-	            psmt = con.prepareStatement(query);
-	            psmt.setString(1, map.get("start").toString());
-	            psmt.setString(2, map.get("end").toString());
-	            rs = psmt.executeQuery();
-
-	            while (rs.next()) {
-	                BoardDTO dto = new BoardDTO();
-
-	                dto.setCno(rs.getString(1));
-	                dto.setCtitle(rs.getString(2));
-	                dto.setCtext(rs.getString(3));
-	                dto.setCwdate(rs.getDate(4));
-	                dto.setCviewcount(rs.getInt(5));
-	                dto.setCwuser(rs.getString(6));
-	                dto.setCpw(rs.getString(7));
-	                dto.setCofile(rs.getString(8));
-	                dto.setCsfile(rs.getString(9));
-	                
-	                board.add(dto);
-	            }
-	        }
-	        catch (Exception e) {
-	            System.out.println("게시물 조회 중 예외 발생");
-	            e.printStackTrace();
-	        }
-	        return board;
-	    }
+		        while (rs.next()) {
+		        	BoardDTO dto = new BoardDTO();
+		            dto.setCno(rs.getString("cno"));
+		            dto.setCtitle(rs.getString("ctitle"));
+		            dto.setCwdate(rs.getDate("cwdate"));
+		            dto.setCviewcount(rs.getInt("cviewcount"));
+		            dto.setCwuser(rs.getString("cwuser"));
+		            
+		            list.add(dto);
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return list;
+		}
 		
 	    // 게시글 작성 시 DB에 추가 (String만)
 	    public int insertWrite(BoardDTO dto) {
@@ -86,7 +67,7 @@ public class BoardDAO extends DBConnPool {
 	            String query = "INSERT INTO community ( "
 	                         + " cno, ctitle, ctext, cwuser, cpw, cofile, csfile) "
 	                         + " VALUES ( "
-	                         + " seq_board_num.NEXTVAL,?,?,?,?,?,?)";
+	                         + " seq_board_num2.NEXTVAL,?,?,?,?,?,?)";
 	            psmt = con.prepareStatement(query);
 	            psmt.setString(1, dto.getCtitle());
 	            psmt.setString(2, dto.getCtext());

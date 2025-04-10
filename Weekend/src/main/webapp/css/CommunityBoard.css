@@ -1,0 +1,148 @@
+body {
+  background-color: #f7f7f7;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+}
+
+#community_title {
+	margin: 25px auto 25px auto;
+	text-align: center;
+}
+.community_title_main {
+  font-size: 2.7rem;
+  font-family: "LINESeedKR-Bd";
+}
+.community_title_sub {
+  font-family: "Gyeonggi_Batang_Regular";
+  font-size: 1rem;
+  color: rgb(107, 105, 105);
+  /* font-weight: 600; */
+}
+
+.board_container {
+  max-width: 1000px;
+  margin: 60px auto 60px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.boardtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.boardtable thead th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #ccc;
+}
+.boardtable tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+.boardtable tbody tr:hover {
+  background-color: #f2f2f2;
+}
+
+/* 페이징 버튼 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.pagination a {
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination a.active {
+  background-color: #e74c3c;
+}
+
+.pagination a.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.page_link {
+        padding: 4px 8px;
+        text-decoration: none;
+        background: black;
+        color: white;
+        border-radius: 4px;
+}
+
+.page_link.current {
+        background: red;
+        color: white;
+}
+
+.page_link.endlink {
+        background: white;
+        color: black;
+        margin: 0 30px;
+        border: 1px solid lightgray;
+        padding: 2px 5px;
+}
+    
+.search_box {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.search_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search_select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.search_input {
+  width: 250px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search_input:focus {
+  border-color: #007bff;
+}
+
+.search_btn {
+  padding: 8px 16px;
+  background-color: rgba(255, 81, 0, 0.957);
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search_btn:hover {
+  background-color: #0056b3;
+}
+

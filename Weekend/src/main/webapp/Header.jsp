@@ -16,10 +16,10 @@
       <!-- 네비게이션 바 : 웹진 & 커뮤니티 -->
       <ul class="nav_item">
         <li class="nav nav_li">
-          <a href="#">웹진</a>
+          <a href="<%= request.getContextPath() %>/webzine/list.do">웹진</a>
         </li>
         <li class="nav nav_li">
-          <a href="#">커뮤니티</a>
+          <a href="<%= request.getContextPath() %>/community/list.do">커뮤니티</a>
         </li>
       </ul>
 

@@ -41,11 +41,15 @@
     <c:forEach var="row" items="${boardLists}" varStatus="status">
       <c:if test="${status.index < 6}">
         <div class="swiper-slide">
-          <a href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}">
-            <img src="${pageContext.request.contextPath}/Uploads/${row.wsfile}" alt="swiper_img${status.index + 1}" />
-            <div class="overlay-text">${row.wtitle}</div>
-          </a>
-        </div>
+  <a class="slide_link" href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}">
+    <!-- 배경 레이어 -->
+    <div class="slide_overlay"></div>
+
+    <!-- 이미지와 텍스트 -->
+    <img src="${pageContext.request.contextPath}/Uploads/${row.wsfile}" alt="swiper_img${status.index + 1}" />
+    <div class="overlay-text">${row.wtitle}</div>
+  </a>
+</div>
       </c:if>
     </c:forEach>
   </div>
@@ -56,9 +60,11 @@
         <span class="webzine_title_main">최신 기사</span><br />
         <span class="webzine_title_sub">알지 못했던 곳으로 여행을 떠나보세요.</span>
       </div>
-      <div class="webzine_writebutton_wrap">
-		<button type="button" onclick="location.href='${pageContext.request.contextPath}/webzine/wwrite.do'" class="webzine_writebutton">기사 작성하기</button>
-		</div>
+      <c:if test="${not empty sessionScope.loginUser && (sessionScope.loginUser.usertype == 2 || sessionScope.loginUser.usertype == 3)}">
+  		<div class="webzine_writebutton_wrap">
+   		 <button type="button" onclick="location.href='${pageContext.request.contextPath}/webzine/wwrite.do'" class="webzine_writebutton">기사 작성하기</button>
+ 		</div>
+	  </c:if>
 		
       <!-- 기사 목록 -->
 <c:forEach var="row" items="${boardLists}">
@@ -78,6 +84,7 @@
       </a>
       <p class="webzine_date">${row.wwdate}</p>
       <p class="webzine_writer">${row.nickname}</p>
+      <p class="webzine_viewcount">조회수 ${row.wviewcount}</p>	
       <a href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}" class="webzine_link">상세보기 &gt;</a>
     </div>
   </div>

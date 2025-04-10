@@ -19,13 +19,13 @@ import utils.BoardPage;
  * Servlet implementation class ListController
  */
 @WebServlet("/community/list.do")
-public class ListController extends HttpServlet {
+public class CommunityListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListController() {
+    public CommunityListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,36 @@ public class ListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 두겟두겟쉿
+		// DAO 생성
+	    BoardDAO dao = new BoardDAO();
+
+	    int totalCount = dao.selectCount();  // 전체 게시물 수
+
+	    int pageSize = 10;
+	    int blockPage = 5;
+
+	    int pageNum = 1;
+	    String pageTemp = req.getParameter("pageNum");
+	    if (pageTemp != null && !pageTemp.equals("")) {
+	        pageNum = Integer.parseInt(pageTemp);
+	    }
+
+	    int start = (pageNum - 1) * pageSize + 1;
+	    int end = pageNum * pageSize;
+
+	    List<BoardDTO> boardLists2 = dao.selectListPage(start, end);
+	    dao.close();
+
+	    String pagingImg = BoardPage.pagingStr2(totalCount, pageSize, blockPage, pageNum, req.getContextPath() + "/community/list.do");
+
+	    req.setAttribute("boardLists2", boardLists2);
+	    req.setAttribute("pagingImg", pagingImg);
+	    req.setAttribute("totalCount", totalCount);
+	    req.setAttribute("pageNum", pageNum);
+	    req.setAttribute("pageSize", pageSize);
+	    
+
+	    req.getRequestDispatcher("/CommunityBoard.jsp").forward(req, resp);
 				
 	}
 

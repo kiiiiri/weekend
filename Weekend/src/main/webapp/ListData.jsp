@@ -18,6 +18,7 @@
       </a>
       <p class="webzine_date">${row.wwdate}</p>
       <p class="webzine_writer">${row.nickname}</p>
+      <p class="webzine_viewcount">조회수 ${row.wviewcount}</p>
       <a href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}" class="webzine_link">상세보기 &gt;</a>
     </div>
   </div>

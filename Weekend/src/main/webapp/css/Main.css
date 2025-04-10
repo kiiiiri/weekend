@@ -34,18 +34,17 @@
   font-family: "LINESeedKR-Bd";
 }
 
-/* prev,next 검정 배경 */
-.swiper-slide::before {
-  content: "";
+/* 검정 배경 */
+.slide_overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 0;
   transition: opacity 0.5s ease;
 }
 
-/* 현재 슬라이드 */
-.swiper-slide-active::before {
+/* 현재 슬라이드일 때는 배경 투명하게 */
+.swiper-slide-active .slide_overlay {
   opacity: 0;
 }
 
@@ -53,11 +52,45 @@
   transition-timing-function: ease-in-out;
 }
 
+/* Swiper 이미지 전체를 클릭 가능하게 만드는 a 링크 */
+.slide_link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Swiper 이미지 안에 있는 이미지 설정 */
+.slide_link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* 이미지 위에 텍스트는 기존 overlay-text 사용 */
+.slide_link .overlay-text {
+  position: absolute;
+  bottom: 50px;
+  left: 20px;
+  color: white;
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  font-family: "LINESeedKR-Bd";
+}
+
 /* 최신 기사 소개 css */
 #recentwebzine_container {
   max-width: 1200px;
   margin: 30px auto 0 auto;
-  height: 1800px;
+  /* height: 1800px; */
 }
 #recentwebzine_title {
   margin-bottom: 30px;
@@ -125,6 +158,14 @@
   color: black;
   margin-top: 15px;
 }
+
+.contents_right .webzine_viewcount {
+  font-size: 0.85rem;
+  margin-top: 15px;
+  font-family: "GowunDodum-Regular";
+  color: rgb(107, 105, 105);
+}
+
 .contents_right .webzine_link {
   position: absolute;
   text-decoration: none !important;
