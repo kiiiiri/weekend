@@ -89,5 +89,8 @@
     
     <!-- 무한 스크롤 기사 불러오기 -->
     <script src="<%=contextPath%>/js/InfiniteScroll.js"></script>
+    <script>
+  const contextPath = "${pageContext.request.contextPath}";
+</script>
 </body>
 </html>

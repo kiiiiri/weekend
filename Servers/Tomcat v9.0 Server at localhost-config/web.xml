@@ -4777,4 +4777,13 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <servlet>
+    <servlet-name>WebzineListData</servlet-name>
+    <servlet-class>gokr.weekend.controller.WebzineListDataController</servlet-class>
+</servlet>
+
+<servlet-mapping>
+    <servlet-name>WebzineListData</servlet-name>
+    <url-pattern>/webzine/list.do</url-pattern>
+</servlet-mapping>
 </web-app>

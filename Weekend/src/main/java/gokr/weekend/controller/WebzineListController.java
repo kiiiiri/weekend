@@ -60,7 +60,7 @@ public class WebzineListController extends HttpServlet {
 
 	    // AJAX 요청이면 JSP 조각만 응답
 	    if ("XMLHttpRequest".equals(req.getHeader("X-Requested-With"))) {
-	        req.getRequestDispatcher("ListData.jsp").forward(req, resp);
+	        req.getRequestDispatcher("/ListData.jsp").forward(req, resp);
 	    }
 	    // 첫 로딩이면 전체 페이지 렌더링
 	    else {

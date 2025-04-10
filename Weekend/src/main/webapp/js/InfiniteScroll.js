@@ -20,8 +20,12 @@ function loadMoreArticles() {
   page++;
 
   document.querySelector("#loading").style.display = "block";
-  
-  fetch(`/webzine/list.do?pageNum=${page}`)
+
+  fetch(`${contextPath}/webzine/list.do?pageNum=${page}`, {
+    headers: {
+      "X-Requested-With": "XMLHttpRequest"
+    }
+  })
     .then((response) => response.text())
     .then((data) => {
       if (data.trim() === "") {
@@ -34,5 +38,6 @@ function loadMoreArticles() {
     .catch((err) => console.error("로드 중 오류:", err))
     .finally(() => {
       loading = false;
+      document.querySelector("#loading").style.display = "none"; // 로딩 이미지 감추기
     });
 }
