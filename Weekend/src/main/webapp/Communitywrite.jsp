@@ -8,14 +8,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>위캔드 | 웹진 작성</title>
+<title>위캔드 | 게시글 작성</title>
 <link rel="icon" sizes="256x256" href="<%=contextPath%>/img/Logo_50.png" />
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=contextPath%>/css/Style.css" />
-<link rel="stylesheet" href="<%=contextPath%>/css/Webzinewrite.css" />
+<link rel="stylesheet" href="<%=contextPath%>/css/Communitywrite.css" />
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
 <script src="<%=contextPath%>/js/Nav.js"></script>
+
 </head>
 
 <body class="bg-gray-50" >
@@ -35,31 +36,43 @@
     <jsp:include page="Header.jsp" />
   </c:otherwise>
 </c:choose>
+
 <!-- 글쓰기 폼 -->
     <form name="writeForm" method="post" enctype="multipart/form-data"
-        action="<%= request.getContextPath() %>/webzine/wwrite.do"
+        action="<%= request.getContextPath() %>/community/cwrite.do"
         onsubmit="return validateForm(this);">
 
     <div class="max-w-3xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-2xl">
-      <h2 class="text-3xl font-bold mb-6 text-gray-800">웹진 작성</h2>
+      <h2 class="text-3xl font-bold mb-6 text-gray-800">게시글 작성</h2>
 
       <!-- 카테고리 선택 -->
-      <div class="flex gap-4 mb-4">
-        <select name="category" class="border rounded-md p-4 w-1/4">
-          <option>카테고리 선택</option>
-          <option>국내 여행지</option>
-          <option>해외 여행지</option>
-          <option>맛집 소개</option>
-          <option>여행기</option>
-          <option>기타 정보</option>
-        </select>
-      </div>
+<div class="flex gap-4 mb-2">
+  <select name="category" class="border rounded-md p-2 w-1/4">
+    <option>카테고리 선택</option>
+    <option>여행지 추천</option>
+    <option>질문</option>
+    <option>후기</option>
+    <option>유용한 정보</option>
+    <option>가입인사</option>
+  </select>
+</div>
 
-      <!-- 제목 입력 -->
-      <input type="text" name="wtitle"
-             placeholder="제목을 입력해주세요"
-             class="w-full border rounded-md p-3 mb-4"
-             required />
+<!-- 작성자 + 비밀번호 입력 (카테고리와 제목 사이) -->
+<div class="flex gap-4 mb-4">
+  <input type="text" name="cwuser"
+         placeholder="작성자"
+         class="w-1/2 border rounded-md p-3" required />
+
+  <input type="password" name="cpw"
+         placeholder="비밀번호"
+         class="w-1/2 border rounded-md p-3" required />
+</div>
+
+<!-- 제목 입력 -->
+<input type="text" name="ctitle"
+       placeholder="제목을 입력해주세요"
+       class="w-full border rounded-md p-3 mb-4"
+       required />
 
       <!-- WYSIWYG 에디터 -->
       <div class="border rounded-md p-3 mb-4 bg-gray-100">
@@ -67,7 +80,7 @@
       </div>
 
       <!-- 숨겨진 textarea: 에디터 내용이 저장될 곳 -->
-      <textarea name="wtext" id="hiddenContent" style="display:none;"></textarea>
+      <textarea name="ctext" id="hiddenContent" style="display:none;"></textarea>
 		
 		<!-- 이미지 파일명 저장용 hidden input 추가 -->
 	<input type="hidden" name="imageFiles" id="imageFiles" />
@@ -90,6 +103,7 @@
 		</div>
       </div>
   </form>
+
 <script>
   // 업로드된 이미지 파일명을 저장할 배열
   const uploadedImageFiles = [];
@@ -105,7 +119,7 @@
         const formData = new FormData();
         formData.append('Wofile', blob); // input name과 일치해야 함
 
-        const response = await fetch('<%=contextPath%>/webzine/imageupload.do', {
+        const response = await fetch('<%=contextPath%>/community/imageupload.do', {
           method: 'POST',
           body: formData
         });
@@ -132,18 +146,32 @@
     document.getElementById("hiddenContent").value = content;
 
     // 제목이 비어있는지 확인
-    if (form.wtitle.value.trim() === "") {
+    if (form.ctitle.value.trim() === "") {
       alert("제목을 입력해주세요.");
       form.wtitle.focus();
       return false;
     }
 
     // 내용이 비어있는지 확인
-    if (content.trim() === "" || content === "<p><br></p>") {
+    if (ctext.trim() === "" || content === "<p><br></p>") {
       alert("내용을 입력해주세요.");
       return false;
     }
 
+    // 작성자 유효성 검사
+    if (form.cwuser.value.trim() === "") {
+      alert("작성자를 입력해주세요.");
+      form.cwuser.focus();
+      return false;
+    }
+
+    // 비밀번호 유효성 검사
+    if (form.cpw.value.trim() === "") {
+      alert("비밀번호를 입력해주세요.");
+      form.cpw.focus();
+      return false;
+    }
+    
     return true; // 유효성 통과 시 submit 진행
   }
 </script>

@@ -48,22 +48,30 @@ public class CommunityWriteController extends HttpServlet {
         // 업로드 디렉터리의 물리적 경로 확인
         String saveDirectory = req.getServletContext().getRealPath("/Uploads");
         System.out.println(saveDirectory);        
-
+        BoardDTO dto2 = new BoardDTO(); 
+        
         // 파일 업로드
         String originalFileName = "";
         try {
-        	originalFileName = FileUtil.uploadFile(req, saveDirectory);
+            // 업로드된 일반 첨부 파일이 있을 때만 처리
+            if (req.getPart("Wofile") != null && req.getPart("Wofile").getSize() > 0) {
+                originalFileName = FileUtil.uploadFile(req, saveDirectory);
+
+                // 파일명 변경
+                String savedFileName = FileUtil.renameFile(saveDirectory, originalFileName);
+
+                dto2.setCofile(originalFileName);  // 원래 파일 이름
+                dto2.setCsfile(savedFileName);     // 저장된 파일 이름
+            }
         }
         catch (Exception e) {
-        	JSFunction.alertLocation(resp, "파일 업로드 오류입니다.",
-                    "../community/cwrite.do");
-        	return;
-		}
+            JSFunction.alertLocation(resp, "파일 업로드 오류입니다.", "../community/cwrite.do");
+            return;
+        }
 
         // 2. 파일 업로드 외 처리 =============================
         
         // 폼값을 DTO에 저장
-        BoardDTO dto2 = new BoardDTO(); 
         dto2.setCtitle(req.getParameter("ctitle"));
         dto2.setCtext(req.getParameter("ctext"));
         dto2.setCwuser(req.getParameter("cwuser"));

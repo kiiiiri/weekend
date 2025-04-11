@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.wrap_01 img {
+  display: block; 
+  max-width: 70%;
+}
+</style>
 </head>
 <body>
 <table border="1" width="90%">
@@ -28,37 +34,22 @@
     </tr>
     <tr>
         <td>내용</td>
-        <td colspan="3" height="100">
+        <td colspan="3" height="100" class="wrap_01">
         	${ dto2.ctext }
-        	<c:if test="${ not empty dto2.cofile and isImage2 eq true }">
-        		<br><img src="../Uploads/${ dto2.csfile }" style="max-width:100%;"/>
-        	</c:if>
         </td>
-    </tr>
-
-    <!-- 첨부파일 -->
-    <tr>
-        <td>첨부파일</td>
-        <td>
-            <c:if test="${ not empty dto2.cofile }">
-            ${ dto2.cofile }
-            <a href="../mvcboard/download.do?cofile=${ dto2.cofile }&csfile=${ dto2.csfile }&idx=${ dto2.cno }">
-                [다운로드]
-            </a>
-            </c:if>
-        </td>
-        <td>다운로드수</td>
-        <td></td>
     </tr>
 
     <!-- 하단 메뉴(버튼) -->
     <tr>
         <td colspan="4" align="center">
-            <button type="button" onclick="location.href='../mvcboard/pass.do?mode=edit&idx=${ param.cno }';">
+            <button type="button" onclick="location.href='/community/pass.do?mode=edit&cno=${ param.cno }';">
                 수정하기
             </button>
-            <button type="button" onclick="location.href='../mvcboard/pass.do?mode=delete&idx=${ param.cno }';">
+            <button type="button" onclick="location.href='/community/pass.do?mode=delete&cno=${ param.cno }';">
                 삭제하기
+            </button>
+            <button type="button" onclick="location.href='/community/list.do';">
+                목록 바로가기
             </button>
         </td>
     </tr>

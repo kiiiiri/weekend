@@ -5,7 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.wrap_01 img {
+  display: block; 
+  max-width: 70%;
+}
+</style>
 </head>
+
 <body>
 <table border="1" width="90%">
     <colgroup>
@@ -28,7 +35,7 @@
     </tr>
     <tr>
         <td>내용</td>
-        <td colspan="3" height="100">
+        <td colspan="3" height="100" class="wrap_01">
         	${ dto.wtext }
         	<%-- <c:if test="${ not empty dto.wofile and isImage eq true }">
         		<br><img src="../Uploads/${ dto.wsfile }" style="max-width:100%;"/>
@@ -36,20 +43,6 @@
         </td>
     </tr>
 
-    <!-- 첨부파일 -->
-    <tr>
-        <td>첨부파일</td>
-        <td>
-            <c:if test="${ not empty dto.wofile }">
-            ${ dto.wofile }
-            <a href="../mvcboard/download.do?wofile=${ dto.wofile }&wsfile=${ dto.wsfile }&idx=${ dto.wno }">
-                [다운로드]
-            </a>
-            </c:if>
-        </td>
-        <td>다운로드수</td>
-        <td></td>
-    </tr>
 
     <!-- 하단 메뉴(버튼) -->
     <tr>
