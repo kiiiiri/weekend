@@ -15,24 +15,24 @@
 
     <!-- 게시글 정보 -->
     <tr>
-        <td>번호</td> <td>${ dto.wno }</td>
-        <td>작성자</td> <td>${ dto.nickname }</td>
+        <td>번호</td> <td>${ dto2.cno }</td>
+        <td>작성자</td> <td>${ dto2.cwuser }</td>
     </tr>
     <tr>
-        <td>작성일</td> <td>${ dto.wwdate }</td>
-        <td>조회수</td> <td>${ dto.wviewcount }</td>
+        <td>작성일</td> <td>${ dto2.cwdate }</td>
+        <td>조회수</td> <td>${ dto2.cviewcount }</td>
     </tr>
     <tr>
         <td>제목</td>
-        <td colspan="3">${ dto.wtitle }</td>
+        <td colspan="3">${ dto2.ctitle }</td>
     </tr>
     <tr>
         <td>내용</td>
         <td colspan="3" height="100">
-        	${ dto.wtext }
-        	<%-- <c:if test="${ not empty dto.wofile and isImage eq true }">
-        		<br><img src="../Uploads/${ dto.wsfile }" style="max-width:100%;"/>
-        	</c:if> --%>
+        	${ dto2.ctext }
+        	<c:if test="${ not empty dto2.cofile and isImage2 eq true }">
+        		<br><img src="../Uploads/${ dto2.csfile }" style="max-width:100%;"/>
+        	</c:if>
         </td>
     </tr>
 
@@ -40,9 +40,9 @@
     <tr>
         <td>첨부파일</td>
         <td>
-            <c:if test="${ not empty dto.wofile }">
-            ${ dto.wofile }
-            <a href="../mvcboard/download.do?wofile=${ dto.wofile }&wsfile=${ dto.wsfile }&idx=${ dto.wno }">
+            <c:if test="${ not empty dto2.cofile }">
+            ${ dto2.cofile }
+            <a href="../mvcboard/download.do?cofile=${ dto2.cofile }&csfile=${ dto2.csfile }&idx=${ dto2.cno }">
                 [다운로드]
             </a>
             </c:if>
@@ -54,14 +54,11 @@
     <!-- 하단 메뉴(버튼) -->
     <tr>
         <td colspan="4" align="center">
-            <button type="button" onclick="location.href='../mvcboard/pass.do?mode=edit&idx=${ param.wno }';">
+            <button type="button" onclick="location.href='../mvcboard/pass.do?mode=edit&idx=${ param.cno }';">
                 수정하기
             </button>
-            <button type="button" onclick="location.href='../mvcboard/pass.do?mode=delete&idx=${ param.wno }';">
+            <button type="button" onclick="location.href='../mvcboard/pass.do?mode=delete&idx=${ param.cno }';">
                 삭제하기
-            </button>
-            <button type="button" onclick="location.href='../mvcboard/list.do';">
-                목록 바로가기
             </button>
         </td>
     </tr>

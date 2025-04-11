@@ -12,6 +12,7 @@
 <link rel="icon" sizes="256x256" href="<%=contextPath%>/img/Logo_50.png" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="<%=contextPath%>/css/Style.css" />
 <link rel="stylesheet" href="<%=contextPath%>/css/Main.css" />

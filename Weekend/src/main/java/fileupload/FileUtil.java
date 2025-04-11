@@ -35,6 +35,11 @@ public class FileUtil {
         String[] phArr = partHeader.split("filename=");
         String originalFileName = phArr[1].trim().replace("\"", "");
 		
+        File dir = new File(sDirectory);
+        if (!dir.exists()) {
+            dir.mkdirs();  // 디렉토리 없으면 생성
+        }
+        
 		//전송된 파일이 있다면 디렉토리에 저장
 		if (!originalFileName.isEmpty()) {				
 			part.write(sDirectory+ File.separator +originalFileName);
@@ -84,6 +89,11 @@ public class FileUtil {
 	        String[] phArr = partHeader.split("filename=");
 	        String originalFileName = phArr[1].trim().replace("\"", "");
 			
+	        File dir = new File(sDirectory);
+	        if (!dir.exists()) {
+	            dir.mkdirs();  // 디렉토리 없으면 생성
+	        }
+	        
 			//전송된 파일이 있다면 디렉토리에 저장
 			if (!originalFileName.isEmpty()) {				
 				part.write(sDirectory+ File.separator +originalFileName);

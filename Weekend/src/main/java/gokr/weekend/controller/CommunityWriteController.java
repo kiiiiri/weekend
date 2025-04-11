@@ -1,8 +1,6 @@
 package gokr.weekend.controller;
 
-import java.io.File;
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -12,26 +10,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fileupload.FileUtil;
-import gokr.weekend.dao.WebzineDAO;
-import gokr.weekend.dto.UserVO;
-import gokr.weekend.dto.WebzineDTO;
+import gokr.weekend.dao.BoardDAO;
+import gokr.weekend.dto.BoardDTO;
 import utils.JSFunction;
 
 /**
- * Servlet implementation class WebzineWriteController
+ * Servlet implementation class CommunityWriteController
  */
-@WebServlet("/webzine/wwrite.do")
+@WebServlet("/community/cwrite.do")
 @MultipartConfig(
 		maxFileSize = 1024 * 1024 * 1,  // 1mbyte == 1024kb == 1024*1024 byte
 		maxRequestSize = 1024 * 1024 * 100 // 100mbyte
 	)
-public class WebzineWriteController extends HttpServlet {
+public class CommunityWriteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WebzineWriteController() {
+    public CommunityWriteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +37,7 @@ public class WebzineWriteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/Webzinewrite.jsp").forward(req, resp);
+		req.getRequestDispatcher("/Communitywrite.jsp").forward(req, resp);
 	}
 
 	/**
@@ -59,62 +56,41 @@ public class WebzineWriteController extends HttpServlet {
         }
         catch (Exception e) {
         	JSFunction.alertLocation(resp, "파일 업로드 오류입니다.",
-                    "../webzine/wwrite.do");
+                    "../community/cwrite.do");
         	return;
 		}
-        
-        
 
         // 2. 파일 업로드 외 처리 =============================
-        // 세션에서 로그인 사용자 정보 가져오기
-        HttpSession session = req.getSession();
-        UserVO loginUser = (UserVO) session.getAttribute("loginUser");
-
-        if (loginUser == null) {
-            JSFunction.alertLocation(resp, "로그인이 필요합니다.", "../login.do");
-            return;
-        }
         
         // 폼값을 DTO에 저장
-        WebzineDTO dto = new WebzineDTO(); 
-        dto.setWtitle(req.getParameter("wtitle"));
-        dto.setWtext(req.getParameter("wtext"));
-        dto.setUno(String.valueOf(loginUser.getUno()));
+        BoardDTO dto2 = new BoardDTO(); 
+        dto2.setCtitle(req.getParameter("ctitle"));
+        dto2.setCtext(req.getParameter("ctext"));
+        dto2.setCwuser(req.getParameter("cwuser"));
+        dto2.setCpw(req.getParameter("cpw"));
 
-        
-     // ✅ TOAST UI 이미지 업로드 파일 처리
-        String imageFiles = req.getParameter("imageFiles");
-        if (imageFiles != null && !imageFiles.isEmpty()) {
-            // 예: "20250411_145831691.png,20250411_145832005.png"
-            String[] filenames = imageFiles.split(",");
-
-            // 현재는 첫 번째 이미지 파일만 대표 이미지로 저장
-            dto.setWofile(filenames[0]);
-            dto.setWsfile(filenames[0]); // 서버에 저장된 파일명이므로 동일
-        }
-        
         // 원본 파일명과 저장된 파일 이름 설정
         if (originalFileName != "") { 
         	// 파일명 변경
         	String savedFileName = FileUtil.renameFile(saveDirectory, originalFileName);
         	
-            dto.setWofile(originalFileName);  // 원래 파일 이름
-            dto.setWsfile(savedFileName);  // 서버에 저장된 파일 이름
+            dto2.setCofile(originalFileName);  // 원래 파일 이름
+            dto2.setCsfile(savedFileName);  // 서버에 저장된 파일 이름
         }
 
         // DAO를 통해 DB에 게시 내용 저장
-        WebzineDAO dao = new WebzineDAO();
-        int result = dao.insertWrite(dto);
-        dao.close();
+        BoardDAO dao2 = new BoardDAO();
+        int result = dao2.insertWrite(dto2);
+        dao2.close();
 
         // 성공 or 실패?	
         if (result == 1) {  // 글쓰기 성공
-            resp.sendRedirect("../webzine/list.do");
+            resp.sendRedirect("../community/list.do");
             }
         else {  // 글쓰기 실패
         	 JSFunction.alertLocation(resp, "글쓰기에 실패했습니다.",
-                     "../webzine/wwrite.do");
-        }
+                     "../community/cwrite.do");
 	}
 
+}
 }

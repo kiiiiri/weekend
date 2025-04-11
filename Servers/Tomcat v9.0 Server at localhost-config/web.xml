@@ -4786,4 +4786,11 @@
     <servlet-name>WebzineListData</servlet-name>
     <url-pattern>/webzine/list.do</url-pattern>
 </servlet-mapping>
+
+
+<servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/Uploads/*</url-pattern>
+</servlet-mapping>
+
 </web-app>

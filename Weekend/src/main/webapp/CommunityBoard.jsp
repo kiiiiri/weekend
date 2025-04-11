@@ -73,7 +73,7 @@
       <tr>
         <td>${row.cno}</td>
         <td>
-          <a href="${pageContext.request.contextPath}/community/view.do?cno=${row.cno}">
+          <a href="${pageContext.request.contextPath}/community/cview.do?cno=${row.cno}">
             ${row.ctitle}
             <%-- <c:if test="${row.replyCount > 0}">[${row.replyCount}]</c:if> --%>
           </a>
@@ -86,15 +86,18 @@
   </tbody>
       </table>
 
-<!-- 페이징 -->
-      <div class="pagination">
-  			${pagingImg}
-	</div>
+<!-- 글쓰기 버튼 + 페이징 -->
 
+<div class="pagination_wrap">
+  <div class="pagination">
+    ${pagingImg}
+  </div>
+</div>
 
+<div class="write_btn_wrap">
+  <a href="${pageContext.request.contextPath}/community/cwrite.do" class="write_btn">글쓰기</a>
+</div>
 
-    </div>
-    
 
     
 </body>
