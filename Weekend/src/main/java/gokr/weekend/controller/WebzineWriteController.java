@@ -51,18 +51,27 @@ public class WebzineWriteController extends HttpServlet {
         // 업로드 디렉터리의 물리적 경로 확인
         String saveDirectory = req.getServletContext().getRealPath("/Uploads");
         System.out.println(saveDirectory);        
-
+        WebzineDTO dto = new WebzineDTO(); 
+        
+        
         // 파일 업로드
         String originalFileName = "";
         try {
-        	originalFileName = FileUtil.uploadFile(req, saveDirectory);
+            // 업로드된 일반 첨부 파일이 있을 때만 처리
+            if (req.getPart("Wofile") != null && req.getPart("Wofile").getSize() > 0) {
+                originalFileName = FileUtil.uploadFile(req, saveDirectory);
+
+                // 파일명 변경
+                String savedFileName = FileUtil.renameFile(saveDirectory, originalFileName);
+
+                dto.setWofile(originalFileName);  // 원래 파일 이름
+                dto.setWsfile(savedFileName);     // 저장된 파일 이름
+            }
         }
         catch (Exception e) {
-        	JSFunction.alertLocation(resp, "파일 업로드 오류입니다.",
-                    "../webzine/wwrite.do");
-        	return;
-		}
-        
+            JSFunction.alertLocation(resp, "파일 업로드 오류입니다.", "../webzine/wwrite.do");
+            return;
+        }
         
 
         // 2. 파일 업로드 외 처리 =============================
@@ -76,7 +85,6 @@ public class WebzineWriteController extends HttpServlet {
         }
         
         // 폼값을 DTO에 저장
-        WebzineDTO dto = new WebzineDTO(); 
         dto.setWtitle(req.getParameter("wtitle"));
         dto.setWtext(req.getParameter("wtext"));
         dto.setUno(String.valueOf(loginUser.getUno()));

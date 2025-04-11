@@ -75,12 +75,6 @@
 		<!-- 이미지 파일명 저장용 hidden input 추가 -->
 	<input type="hidden" name="imageFiles" id="imageFiles" />
 
-      <!-- 파일 첨부 -->
-      <div class="mb-6">
-        <label class="font-semibold block mb-2 text-gray-700">첨부 파일</label>
-        <input type="file" name="Wofile" class="block" />
-      </div>
-
      <!-- 버튼 영역 -->
 		<div class="flex justify-center items-center space-x-2 mt-6">
   			<button type="submit"
@@ -108,7 +102,7 @@
   const editor = new toastui.Editor({
     el: document.querySelector('#editor'),
     height: '600px',
-    initialEditType: 'markdown',
+    initialEditType: 'wysiwyg',
     previewStyle: 'vertical',
     hooks: {
       addImageBlobHook: async (blob, callback) => {
