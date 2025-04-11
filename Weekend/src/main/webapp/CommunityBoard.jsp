@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="<%=contextPath%>/css/Style.css" />
 <link rel="stylesheet" href="<%=contextPath%>/css/CommunityBoard.css" />
 <script src="<%=contextPath%>/js/Nav.js"></script>
+<script src="<%=contextPath%>/js/CommunityBoard.js"></script>
 </head>
 <body>
 <body>
@@ -33,9 +34,27 @@
 </c:choose>
 
 <div id="community_title">
-<span class="community_title_main">유저 커뮤니티</span><br />
+<span class="community_title_main">커뮤니티</span><br />
 <span class="community_title_sub">유용한 정보와 소중한 기억들을 소개해보세요.</span>
 </div>
+
+<!-- 검색 폼  -->
+	<div class="community_banner">
+  <img src="<%=contextPath%>/img/community_board.png" alt="커뮤니티 배너 이미지" class="banner_img" />
+  <div class="search_box">
+    <form method="get" class="search_form">
+      <select name="searchField" class="search_select">
+        <option value="title">제목</option>
+        <option value="content">내용</option>
+      </select>
+      <input type="text" name="searchWord" class="search_input" placeholder="4월 가장 핫한 여행지는?" />
+      <button type="submit" class="search_btn">검색</button>
+    </form>
+  </div>
+</div>
+    
+    <!-- 페이징 빠른 시점 전환 체크포인트 -->
+<a name="board"></a>
 
 	<!-- 게시글 목록 테이블 -->
     <div class="board_container">
@@ -71,18 +90,7 @@
       <div class="pagination">
   			${pagingImg}
 	</div>
-	
-<!-- 검색 폼  -->
-<div class="search_box">
-  <form method="get" class="search_form">
-    <select name="searchField" class="search_select">
-      <option value="title">제목</option>
-      <option value="content">내용</option>
-    </select>
-    <input type="text" name="searchWord" class="search_input" placeholder="검색어를 입력하세요" />
-    <button type="submit" class="search_btn">검색하기</button>
-  </form>
-</div>
+
 
 
     </div>

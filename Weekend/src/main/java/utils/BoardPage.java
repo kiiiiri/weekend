@@ -11,7 +11,7 @@ public class BoardPage {
 
 	    // [처음] 링크
 	    if (pageNum != 1) {
-	        sb.append("<a href='" + pageUrl + "?pageNum=1' class='page_link endlink'>◀◀</a>");
+	    	 sb.append("<a href='" + pageUrl + "?pageNum=1#board' class='page_link endlink'>◀◀</a>");
 	    }
 
 	    int startPage;
@@ -35,8 +35,8 @@ public class BoardPage {
 
 	    // ... 앞 생략
 	    if (startPage > 2) {
-	        sb.append("<a href='" + pageUrl + "?pageNum=1'>1</a>");
-	        sb.append("<a href='" + pageUrl + "?pageNum=2'>2</a>");
+	    	 sb.append("<a href='" + pageUrl + "?pageNum=1#board'>1</a>"); 
+	         sb.append("<a href='" + pageUrl + "?pageNum=2#board'>2</a>"); 
 	        sb.append("<span>...</span>");
 	    }
 
@@ -47,20 +47,20 @@ public class BoardPage {
 	        if (i == pageNum) {
 	        	sb.append("<a class='page_link current'>" + i + "</a>");
 	        } else {
-	        	sb.append("<a href='" + pageUrl + "?pageNum=" + i + "' class='page_link'>" + i + "</a>");
+	        	sb.append("<a href='" + pageUrl + "?pageNum=" + i + "#board' class='page_link'>" + i + "</a>");
 	        }
 	    }
 
 	    // ... 뒤 생략
 	    if (endPage < totalPage - 1) {
 	        sb.append("<span>...</span>");
-	        sb.append("<a href='" + pageUrl + "?pageNum=" + (totalPage - 1) + "'>" + (totalPage - 1) + "</a>");
-	        sb.append("<a href='" + pageUrl + "?pageNum=" + totalPage + "'>" + totalPage + "</a>");
+	        sb.append("<a href='" + pageUrl + "?pageNum=" + (totalPage - 1) + "#board'>" + (totalPage - 1) + "</a>"); 
+	        sb.append("<a href='" + pageUrl + "?pageNum=" + totalPage + "#board'>" + totalPage + "</a>"); 
 	    }
 
 	    // [마지막] 링크
 	    if (pageNum != totalPage) {
-	    	sb.append("<a href='" + pageUrl + "?pageNum=" + totalPage + "' class='page_link endlink'>▶▶</a>");
+	    	sb.append("<a href='" + pageUrl + "?pageNum=" + totalPage + "#board' class='page_link endlink'>▶▶</a>"); 
 	    }
 
 	    return sb.toString();
