@@ -20,11 +20,13 @@
 
 </head>
 <body>
+
 <!-- 사이트 제목 -->
     <div class="site_title">
       <div class="title_logo"><a href="#"></a></div>
       <div class="title_wrap">WEEKEND</div>
     </div>
+    
     <!-- 네비게이션 바 (비로그인/로그인) -->
     <c:choose>
   <c:when test="${not empty sessionScope.loginUser}">
@@ -54,6 +56,14 @@
     </c:forEach>
   </div>
 </div>
+
+<!-- 광고 include  -->
+<%
+  int randomAd = (int)(Math.random() * 2) + 1; 
+  String adPage = "Ad0" + randomAd + ".jsp";
+%>
+<jsp:include page="<%= adPage %>" />
+
         <!-- 최신 기사 소개 컨테이너 -->
     <div id="recentwebzine_container">
       <div id="recentwebzine_title">

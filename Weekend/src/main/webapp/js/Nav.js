@@ -3,10 +3,10 @@ $(document).ready(function () {
   $(window).on("scroll", function () {
     if ($(window).scrollTop() >= 90) {
       $("#header").addClass("fixed");
-      $(".carousel_container").addClass("fixed2");
+      $('body').addClass('fixed-header-padding');
     } else {
       $("#header").removeClass("fixed");
-      $(".carousel_container").removeClass("fixed2");
+      $('body').removeClass('fixed-header-padding');
     }
   });
 
