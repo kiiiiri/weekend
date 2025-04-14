@@ -2,7 +2,9 @@ package gokr.weekend.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gokr.weekend.dao.BoardDAO;
+import gokr.weekend.dao.CommentsDAO;
 import gokr.weekend.dto.BoardDTO;
+import gokr.weekend.dto.CommentsDTO;
 
 /**
  * Servlet implementation class CommunityViewController
@@ -54,10 +58,22 @@ public class CommunityViewController extends HttpServlet {
         	isImage2 = true;
         }
         
+        // ✅ 댓글 목록 가져오기
+        CommentsDAO cdao = new CommentsDAO();
+        Map<String, Object> map = new HashMap<>();
+        map.put("cno", Integer.parseInt(cno));  // 댓글도 게시글 번호로 검색
+        map.put("start", 1);  // 페이징 미사용 시 넉넉히
+        map.put("end", 100);  // 최대 100개까지 출력
+
+        List<CommentsDTO> commentList = cdao.selectListPage(map);
+        cdao.close();
+        
+        
         //---------------------------------------
         
         // 게시물(dto2) 저장 후 뷰로 포워드
         req.setAttribute("dto2", dto2);
+        req.setAttribute("commentList", commentList);
         req.setAttribute("isImage2", isImage2);
         req.getRequestDispatcher("/CommunityView.jsp").forward(req, resp);
 	}

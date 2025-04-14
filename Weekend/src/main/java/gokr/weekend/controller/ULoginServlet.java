@@ -32,7 +32,12 @@ public class ULoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url="/Login.jsp";
+		String from = request.getParameter("from");
+		if (from != null) {
+	        request.setAttribute("from", from);
+	    }
+		
+		String url="/ULogin.jsp";
 		HttpSession session = request.getSession();
 		if (session.getAttribute("loginUser") != null) {// 이미 로그인 된 사용자이면
 			url = "/Main.jsp"; // 메인 페이지로 이동한다.
@@ -46,9 +51,11 @@ public class ULoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url = "/Login.jsp";
+		String url = "/ULogin.jsp";
 	      String email = request.getParameter("email");
 	      String pw = request.getParameter("pw");
+	      String from = request.getParameter("from"); //로그인 시도 근원지
+	      
 	      UserDAO uDao = UserDAO.getInstance();
 	      int result = uDao.userCheck(email, pw);
 	      
@@ -56,9 +63,14 @@ public class ULoginServlet extends HttpServlet {
 	         UserVO uVo = uDao.getUser(email);
 	         HttpSession session = request.getSession();
 	         session.setAttribute("loginUser", uVo);
-	        //  request.setAttribute("message", "회원 가입에 성공했습니다.");
-	         url = request.getContextPath() + "/webzine/list.do";
-	         response.sendRedirect(url); //주소 변경
+	        
+	      // 로그인 성공 후 이동 경로 설정
+	         if ("community".equals(from)) {
+	        	 url = request.getContextPath() + "/community/list.do";
+	         } else {
+	        	 url = request.getContextPath() + "/webzine/list.do"; // 기본값
+	         }
+	         response.sendRedirect(url);
 	      } 
 	      else if (result == 0) {
 	    	 request.getSession().setAttribute("message", "비밀번호가 맞지 않습니다.");  // 세션에 메시지 설정
@@ -70,8 +82,6 @@ public class ULoginServlet extends HttpServlet {
 	         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 	 		 dispatcher.forward(request, response);	
 	      }
-	      //RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-		  //dispatcher.forward(request, response);
 		 
 	}
 

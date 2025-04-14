@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%
-    String contextPath = request.getContextPath();
+<%
+String contextPath = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html>
@@ -94,7 +94,10 @@
         <h2>${row.wtitle}</h2>
       </a>
       <p class="webzine_date">${row.wwdate}</p>
-      <p class="webzine_writer">${row.nickname}</p>
+ 
+  
+      <p class="webzine_writer">📖 ${row.nickname}</p>
+      
       <p class="webzine_viewcount">조회수 ${row.wviewcount}</p>	
       <a href="${pageContext.request.contextPath}/webzine/wview.do?wno=${row.wno}" class="webzine_link">상세보기 &gt;</a>
     </div>

@@ -1,6 +1,7 @@
 package gokr.weekend.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +35,18 @@ public class CommunityListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// DAO 생성
-	    BoardDAO dao = new BoardDAO();
+		BoardDAO dao = new BoardDAO();
 
-	    int totalCount = dao.selectCount();  // 전체 게시물 수
+	    String searchField = req.getParameter("searchField");
+	    String searchWord = req.getParameter("searchWord");
+	    
+	    
+	    if (searchField == null) searchField = "";
+	    if (searchWord == null) searchWord = "";
 
-	    int pageSize = 10;
+	    int totalCount = dao.selectCount(searchField, searchWord);
+
+	    int pageSize = 8;
 	    int blockPage = 5;
 
 	    int pageNum = 1;
@@ -51,18 +58,30 @@ public class CommunityListController extends HttpServlet {
 	    int start = (pageNum - 1) * pageSize + 1;
 	    int end = pageNum * pageSize;
 
-	    List<BoardDTO> boardLists2 = dao.selectListPage(start, end);
+	    List<BoardDTO> boardLists2 = dao.selectListPage(searchField, searchWord, start, end);
+	    List<BoardDTO> noticeList = dao.selectNotices();
 	    dao.close();
 
-	    String pagingImg = BoardPage.pagingStr2(totalCount, pageSize, blockPage, pageNum, req.getContextPath() + "/community/list.do");
+	    // 검색 조건을 포함한 페이징 URL 구성
+	    String pageUrl = req.getContextPath() + "/community/list.do";
+	    if (!searchWord.equals("")) {
+	        searchWord = URLEncoder.encode(searchWord, "UTF-8");
+	        pageUrl += "?searchField=" + searchField + "&searchWord=" + searchWord;
+	    } else {
+	        pageUrl += "?";
+	    }
+
+	    String pagingImg = BoardPage.pagingStr2(totalCount, pageSize, blockPage, pageNum, pageUrl);
 
 	    req.setAttribute("boardLists2", boardLists2);
+	    req.setAttribute("noticeList", noticeList);
 	    req.setAttribute("pagingImg", pagingImg);
 	    req.setAttribute("totalCount", totalCount);
 	    req.setAttribute("pageNum", pageNum);
 	    req.setAttribute("pageSize", pageSize);
+	    req.setAttribute("searchField", searchField);
+	    req.setAttribute("searchWord", searchWord);
 	    
-
 	    req.getRequestDispatcher("/CommunityBoard.jsp").forward(req, resp);
 				
 	}

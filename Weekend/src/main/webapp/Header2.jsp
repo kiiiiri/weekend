@@ -8,7 +8,7 @@
 </head>
 <body>
 	<!-- 네비게이션 바 -->
-    <nav id="header">
+    <nav id="header" class="orangeborder">
       <!-- 네비게이션 바 : 파라솔 로고 & 사이트 이름 -->
       <li class="nav nav_logo"><a href="#"></a></li>
       <div class="nav_word">WEEKEND</div>
@@ -25,10 +25,10 @@
 
       <!-- 네비게이션 바 : 로그인 시 : 내 정보 탭 -->
       <div class="nav nav_site">
-        <button id="drop_btn" class="dropdown_btn"><span class="namespan">${sessionScope.loginUser.nickname}&nbsp님</span></button>
+        <button id="drop_btn" class="dropdown_btn"><span class="namespan1">${sessionScope.loginUser.nickname}&nbsp님</span></button>
         <div id="drop_menu" class="nav_dropdown">
-          <a href="#">내 정보 수정</a>
-          <a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
+          <a href="${pageContext.request.contextPath}/userupdate.do?from=webzine">내 정보 수정</a>
+          <a href="${pageContext.request.contextPath}/logout.do?from=webzine">로그아웃</a>
         </div>
       </div>
     </nav>

@@ -35,7 +35,7 @@ public class UNicknameCheckServlet extends HttpServlet {
 		int result = uDao.confirmNickname(nickname);
 		request.setAttribute("nickname", nickname);
 		request.setAttribute("result", result);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/NicknameCheck.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/UNicknameCheck.jsp");
 		dispatcher.forward(request, response);
 	}
 

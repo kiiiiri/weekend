@@ -52,7 +52,7 @@ public class CommunityPassController extends HttpServlet {
 			if(mode.equals("edit")) { //수정하는 경우
 				HttpSession session=req.getSession();
 				session.setAttribute("pass",cpw); // 세션 Attribute에 비밀번호저장
-				resp.sendRedirect("/community/edit.do?cno="+cno);//수정화면으로 이동
+				resp.sendRedirect("../community/edit.do?cno="+cno);//수정화면으로 이동
 			}else if(mode.equals("delete")){ //삭제하는 경우
 				dao=new BoardDAO();
 				BoardDTO dto=dao.selectView(cno);
@@ -62,7 +62,7 @@ public class CommunityPassController extends HttpServlet {
 					String saveFileName=dto.getCsfile(); //저장된 파일명
 					FileUtil.deleteFile(req, "/Uploads", saveFileName); //파일삭제
 				}
-				JSFunction.alertLocation(resp, "삭제되었습니다.","/community/list.do");
+				JSFunction.alertLocation(resp, "삭제되었습니다.","../community/list.do");
 			}
 		}else { //비밀번호 불일치하는 경우
 			JSFunction.alertBack(resp, "비밀번호가 일치하지 않습니다.");

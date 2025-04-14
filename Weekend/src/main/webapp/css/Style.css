@@ -86,10 +86,17 @@ select {
   width: 100%;
   height: 62px;
   background-color: #fff;
-  border-bottom: 6.5px solid rgb(255, 115, 0);
   z-index: 999;
   display: flex;
   transition: 300ms;
+}
+
+#header.orangeborder {
+	border-bottom: 6.5px solid rgb(255, 115, 0);
+}
+
+#header.tealborder {
+	border-bottom: 6.5px solid rgb(102, 205, 170);
 }
 
 #header.fixed {
@@ -122,7 +129,7 @@ select {
   position: relative;
 }
 
-#header .nav_logo {
+#header .nav_logo, #header .nav_logo2 {
   display: flex;
   width: 50px;
   height: 50px;
@@ -133,11 +140,12 @@ select {
   transition: 900ms;
   opacity: 0;
 }
-#header.fixed .nav_logo {
+
+#header.fixed .nav_logo, #header.fixed .nav_logo2 {
   opacity: 1;
 }
 
-#header .nav_word {
+#header.orangeborder .nav_word {
   height: 100%;
   font-size: 38px;
   align-items: center;
@@ -150,6 +158,22 @@ select {
   opacity: 0;
   transition: 900ms;
 }
+
+#header.tealborder .nav_word {
+  height: 100%;
+  font-size: 38px;
+  align-items: center;
+  justify-content: center;
+  margin: 3px auto 10px 0px;
+  color: rgb(102, 205, 170);
+  font-family: "Rightous", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  opacity: 0;
+  transition: 900ms;
+}
+
+
 #header.fixed .nav_word {
   opacity: 1;
 }
@@ -163,8 +187,11 @@ select {
   transition: 500ms;
 }
 
-#header li > a:hover {
+#header.orangeborder li > a:hover {
   color: rgba(255, 124, 42, 0.8);
+}
+#header.tealborder li > a:hover {
+  color: rgba(102, 205, 170, 0.8);
 }
 
 #header .nav_logo a {
@@ -172,6 +199,13 @@ select {
   height: 50px;
   background: url(../img/Logo_50.png);
 }
+
+#header .nav_logo2 a {
+  width: 50px;
+  height: 50px;
+  background: url(../img/Logo2_50.png);
+}
+
 
 #header .nav_site {
   display: flex;
@@ -212,8 +246,11 @@ select {
   color: #252525b7;
   transition: 500ms;
 }
-#header .nav_loginbutton:hover {
+#header.orangeborder .nav_loginbutton:hover {
   color: rgba(255, 124, 42, 0.8);
+}
+#header.tealborder .nav_loginbutton:hover {
+  color: rgba(102, 205, 170, 0.8);
 }
 
 /* 사이트 상단 타이틀 */
@@ -228,7 +265,7 @@ select {
   background-color: rgb(255, 255, 255);
 }
 
-.title_logo {
+.title_logo, .title_logo2 {
   display: flex;
   width: 50px;
   height: 50px;
@@ -241,6 +278,11 @@ select {
   width: 50px;
   height: 50px;
   background: url(../img/Logo_50.png);
+}
+.title_logo2 a {
+  width: 50px;
+  height: 50px;
+  background: url(../img/Logo2_50.png);
 }
 
 .title_wrap {
@@ -256,6 +298,20 @@ select {
   font-style: normal;
   color: rgba(255, 81, 0, 0.877);
 }
+.title_wrap2 {
+  margin-top: 10px;
+  width: 275px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 49px;
+  font-family: "Rightous", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: rgba(102, 205, 170, 0.877);
+}
+
 
 .carousel_container.fixed2 {
   margin-top: 115px;
@@ -263,13 +319,17 @@ select {
 
 /* 내 정보 버튼 클릭 */
 
-.namespan {
+.namespan1, .namespan2 {
 	transition: 200ms;
 	color: black;
 }
-.dropdown_btn:hover .namespan {
+.dropdown_btn:hover .namespan1 {
 	color: rgba(255, 124, 42, 0.8);
 }
+.dropdown_btn:hover .namespan2 {
+	color: rgba(102, 205, 170, 0.8);
+}
+
 .nav_site {
   transition: 200ms;
   position: relative;
@@ -291,9 +351,6 @@ select {
   cursor: pointer;
   color: #252525b7;
   font-weight: 600;
-}
-.dropdown_btn:hover {
-  color: rgba(255, 124, 42, 0.8);
 }
 
 .nav_dropdown {

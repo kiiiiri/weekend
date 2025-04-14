@@ -8,7 +8,7 @@
 </head>
 <body>
 	<!-- 네비게이션 바 -->
-    <nav id="header">
+    <nav id="header" class="orangeborder">
       <!-- 네비게이션 바 : 파라솔 로고 & 사이트 이름 -->
       <li class="nav nav_logo"><a href="#"></a></li>
       <div class="nav_word">WEEKEND</div>
@@ -24,7 +24,7 @@
       </ul>
 
       <!-- 비로그인 시 : 로그인 & 회원가입 -->
-      <button class="nav_loginbutton"><a href="<%= request.getContextPath() %>/login.do">로그인/회원가입</a></button>
+      <button class="nav_loginbutton"><a href="<%=request.getContextPath()%>/login.do?from=webzine">로그인/회원가입</a></button>
     </nav>
 </body>
 </html>

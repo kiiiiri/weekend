@@ -18,7 +18,7 @@
 </head>
 <body>
 <h1>비밀번호 확인</h1>
-	<form method="post" action="/community/pass.do" onsubmit="return validateForm(this);">
+	<form method="post" action="${pageContext.request.contextPath}/community/pass.do" onsubmit="return validateForm(this);">
 		<input type="hidden" name="cno" value="${param.cno}">
 		<input type="hidden" name="mode" value="${param.mode}">
 		<table border="1" width="90%">
@@ -32,7 +32,7 @@
 				<td colspan="2" align="center">
 					<button type="submit">확인</button>
 					<button type="reset">RESET</button>
-					<button type="button" onclick="location.href='/community/list.do'">목록</button>
+					<button type="button" onclick="location.href='${pageContext.request.contextPath}/community/list.do'">목록</button>
 				</td>
 			</tr>
 		</table>

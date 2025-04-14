@@ -13,12 +13,22 @@ public class BoardDAO extends DBConnPool {
 			super();
 		}
 		
-		//게시물 수 조회
-		public int selectCount() {
+		//검색어 포함 게시물 수 조회
+		public int selectCount(String field, String word) {
 		    int totalCount = 0;
-		    String sql = "SELECT COUNT(*) FROM Community";
+		    String query = "SELECT COUNT(*) FROM community";
+
+		    if (word != null && !word.trim().equals("")) {
+		        query += " WHERE " + field + " LIKE ?";
+		    }
+
 		    try {
-		        psmt = con.prepareStatement(sql);
+		        psmt = con.prepareStatement(query);
+
+		        if (word != null && !word.trim().equals("")) {
+		            psmt.setString(1, "%" + word + "%");
+		        }
+
 		        rs = psmt.executeQuery();
 		        if (rs.next()) {
 		            totalCount = rs.getInt(1);
@@ -26,48 +36,97 @@ public class BoardDAO extends DBConnPool {
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		    }
+
 		    return totalCount;
 		}
 		
-		//게시물 목록 조회
-		public List<BoardDTO> selectListPage(int start, int end) {
+		// 검색어 포함 일반 게시물 목록 조회(+페이징.)
+		public List<BoardDTO> selectListPage(String field, String word, int start, int end) {
 		    List<BoardDTO> list = new ArrayList<>();
-		    String sql = "SELECT * FROM ( "
-		               + "SELECT Tb.*, ROWNUM rNum FROM ( "
-		               + "SELECT * FROM Community ORDER BY cno DESC "
-		               + ") Tb "
-		               + ") WHERE rNum BETWEEN ? AND ?";
+		    String query = "SELECT * FROM ("
+		                 + " SELECT Tb.*, ROWNUM rNum FROM ("
+		                 + " SELECT b.*, "
+		                 + " (SELECT COUNT(*) FROM comments c WHERE c.cno = b.cno) AS replyCount "
+		                 + " FROM community b WHERE b.ctype != 5";  
+
+		    if (word != null && !word.trim().equals("")) {
+		        query += " AND b." + field + " LIKE ?";
+		    }
+
+		    query += " ORDER BY b.cno DESC"
+		           + " ) Tb"
+		           + " ) WHERE rNum BETWEEN ? AND ?";
 
 		    try {
-		        psmt = con.prepareStatement(sql);
-		        psmt.setInt(1, start);
-		        psmt.setInt(2, end);
+		        psmt = con.prepareStatement(query);
+
+		        int idx = 1;
+		        if (word != null && !word.trim().equals("")) {
+		            psmt.setString(idx++, "%" + word + "%");
+		        }
+		        psmt.setInt(idx++, start);
+		        psmt.setInt(idx, end);
+
 		        rs = psmt.executeQuery();
 
 		        while (rs.next()) {
-		        	BoardDTO dto = new BoardDTO();
+		            BoardDTO dto = new BoardDTO();
 		            dto.setCno(rs.getString("cno"));
 		            dto.setCtitle(rs.getString("ctitle"));
 		            dto.setCwdate(rs.getDate("cwdate"));
 		            dto.setCviewcount(rs.getInt("cviewcount"));
 		            dto.setCwuser(rs.getString("cwuser"));
+		            dto.setCtype(rs.getInt("ctype"));
+		            dto.setReplyCount(rs.getInt("replyCount"));
+		            list.add(dto);
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return list;
+		}
+		
+		//공지사항 우선 출력
+		public List<BoardDTO> selectNotices() {
+		    List<BoardDTO> list = new ArrayList<>();
+		    String query = "SELECT b.*, "
+		                 + " (SELECT COUNT(*) FROM comments c WHERE c.cno = b.cno) AS replyCount "
+		                 + " FROM community b WHERE b.ctype = 5 "
+		                 + " ORDER BY b.cno DESC";
+
+		    try {
+		        psmt = con.prepareStatement(query);
+		        rs = psmt.executeQuery();
+
+		        while (rs.next()) {
+		            BoardDTO dto = new BoardDTO();
+		            dto.setCno(rs.getString("cno"));
+		            dto.setCtitle(rs.getString("ctitle"));
+		            dto.setCwdate(rs.getDate("cwdate"));
+		            dto.setCviewcount(rs.getInt("cviewcount"));
+		            dto.setCwuser(rs.getString("cwuser"));
+		            dto.setCtype(rs.getInt("ctype"));
+		            dto.setReplyCount(rs.getInt("replyCount"));
 		            
 		            list.add(dto);
 		        }
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		    }
+
 		    return list;
 		}
+		
 		
 	    // 게시글 작성 시 DB에 추가 (String만)
 	    public int insertWrite(BoardDTO dto) {
 	        int result = 0;
 	        try {
 	            String query = "INSERT INTO community ( "
-	                         + " cno, ctitle, ctext, cwuser, cpw, cofile, csfile) "
+	                         + " cno, ctitle, ctext, cwuser, cpw, cofile, csfile, ctype) "
 	                         + " VALUES ( "
-	                         + " seq_board_num2.NEXTVAL,?,?,?,?,?,?)";
+	                         + " seq_board_num2.NEXTVAL,?,?,?,?,?,?,?)";
 	            psmt = con.prepareStatement(query);
 	            psmt.setString(1, dto.getCtitle());
 	            psmt.setString(2, dto.getCtext());
@@ -75,6 +134,7 @@ public class BoardDAO extends DBConnPool {
 	            psmt.setString(4, dto.getCpw());
 	            psmt.setString(5, dto.getCofile());
 	            psmt.setString(6, dto.getCsfile());
+	            psmt.setInt(7, dto.getCtype());
 	            result = psmt.executeUpdate();
 	        }
 	        catch (Exception e) {
@@ -82,6 +142,23 @@ public class BoardDAO extends DBConnPool {
 	            e.printStackTrace();
 	        }
 	        return result;
+	    }
+	    
+	 // 특정 게시글의 댓글 수 조회
+	    public int commentscount(String cno) {
+	        int count = 0;
+	        String query = "SELECT COUNT(*) FROM comments WHERE cno = ?";
+	        try {
+	            psmt = con.prepareStatement(query);
+	            psmt.setString(1, cno);
+	            rs = psmt.executeQuery();
+	            if (rs.next()) {
+	                count = rs.getInt(1);
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return count;
 	    }
 	    
 	    // 주어진 일련번호에 해당하는 게시물을 DTO에 담아 반환합니다.
@@ -103,6 +180,7 @@ public class BoardDAO extends DBConnPool {
 	                dto.setCpw(rs.getString(7));
 	                dto.setCofile(rs.getString(8));
 	                dto.setCsfile(rs.getString(9));
+	                dto.setCtype(rs.getInt("ctype"));
 	            }
 	        }
 	        catch (Exception e) {
@@ -130,23 +208,20 @@ public class BoardDAO extends DBConnPool {
 	    
 	 // 입력한 비밀번호가 지정한 일련번호의 게시물의 비밀번호와 일치하는지 확인합니다.
 	    public boolean confirmPassword(String cpw, String cno) {
-	        boolean isCorr = true;
-	        try {
-	            String sql = "SELECT COUNT(*) FROM community WHERE cpw=? AND cno=?";
-	            psmt = con.prepareStatement(sql);
-	            psmt.setString(1, cpw);
-	            psmt.setString(2, cno);
-	            rs = psmt.executeQuery();
-	            rs.next();
-	            if (rs.getInt(1) == 0) {
-	                isCorr = false;
-	            }
-	        }
-	        catch (Exception e) {
-	            isCorr = false;
-	            e.printStackTrace();
-	        }
-	        return isCorr;
+	    	boolean result = false;
+	    	String sql = "SELECT COUNT(*) FROM community WHERE cno = ? AND cpw = ?";
+	    	try {
+	    		psmt = con.prepareStatement(sql);
+	    		psmt.setString(1, cno);
+	    		psmt.setString(2, cpw);
+	    		rs = psmt.executeQuery();
+	    		if (rs.next()) {
+	    			result = rs.getInt(1) > 0;
+	    		}
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	}
+	    	return result;
 	    }
 	    
 	    // 지정한 일련번호의 게시물을 삭제합니다.
@@ -171,7 +246,7 @@ public class BoardDAO extends DBConnPool {
 	        try {
 	            // 쿼리문 템플릿 준비
 	            String query = "UPDATE community"
-	                         + " SET ctitle=?, cwuser=?, ctext=?, cfile=? csfile=? "
+	                         + " SET ctitle=?, cwuser=?, ctext=?, cofile=?, csfile=?, ctype=? "
 	                         + " WHERE cno=? and cpw=?";
 
 	            // 쿼리문 준비
@@ -181,8 +256,9 @@ public class BoardDAO extends DBConnPool {
 	            psmt.setString(3, dto.getCtext());
 	            psmt.setString(4, dto.getCofile());
 	            psmt.setString(5, dto.getCsfile());
-	            psmt.setString(6, dto.getCno());
-	            psmt.setString(7, dto.getCpw());
+	            psmt.setInt(6, dto.getCtype());
+	            psmt.setString(7, dto.getCno());
+	            psmt.setString(8, dto.getCpw());
 
 	            // 쿼리문 실행
 	            result = psmt.executeUpdate();

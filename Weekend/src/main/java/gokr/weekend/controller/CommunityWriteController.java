@@ -68,7 +68,19 @@ public class CommunityWriteController extends HttpServlet {
             JSFunction.alertLocation(resp, "파일 업로드 오류입니다.", "../community/cwrite.do");
             return;
         }
+        
+        // 카테고리 타입 변환
+        String ctypeParam = req.getParameter("ctype");
+        int ctype = 1; 
 
+        if (ctypeParam != null && !ctypeParam.trim().equals("")) {
+            try {
+                ctype = Integer.parseInt(ctypeParam);
+            } catch (NumberFormatException e) {
+                ctype = 1; 
+            }
+        }
+        
         // 2. 파일 업로드 외 처리 =============================
         
         // 폼값을 DTO에 저장
@@ -76,6 +88,7 @@ public class CommunityWriteController extends HttpServlet {
         dto2.setCtext(req.getParameter("ctext"));
         dto2.setCwuser(req.getParameter("cwuser"));
         dto2.setCpw(req.getParameter("cpw"));
+        dto2.setCtype(ctype);
 
         // 원본 파일명과 저장된 파일 이름 설정
         if (originalFileName != "") { 

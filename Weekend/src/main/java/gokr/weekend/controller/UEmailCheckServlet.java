@@ -35,7 +35,7 @@ public class UEmailCheckServlet extends HttpServlet {
 		int result = uDao.confirmEmail(email);
 		request.setAttribute("email", email);
 		request.setAttribute("result", result);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/EmailCheck.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/UEmailCheck.jsp");
 		dispatcher.forward(request, response);
 	}
 

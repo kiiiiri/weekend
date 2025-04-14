@@ -83,8 +83,8 @@ body {
 }
 
 .page_link.current {
-        background: red;
-        color: white;
+        background: palegreen;
+        color: black;
 }
 
 .page_link.endlink {
@@ -145,7 +145,7 @@ body {
 }
 
 .search_btn {
-  background-color: #ff7b00; /* 예시: 주황색 */
+  background-color: rgb(102, 205, 170); /* 예시: 주황색 */
   border: none;
   color: white;
   /* font-weight: bold; */
@@ -156,7 +156,7 @@ body {
 }
 
 .search_btn:hover {
-  background-color: #e66a00;
+  background-color: teal;
 }
 
 
@@ -173,7 +173,7 @@ body.fixed-header-padding .site_title {
 }
 
 .write_btn {
-  background-color: orange;
+  background-color: rgb(102, 205, 170);
   color: white;
   padding: 8px 16px;
   border-radius: 6px;
@@ -184,7 +184,7 @@ body.fixed-header-padding .site_title {
 }
 
 .write_btn:hover {
-  background-color: #ff7f00;
+  background-color: teal;
 }
 
 /* 페이징 버튼 중앙 정렬 */

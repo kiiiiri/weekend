@@ -55,36 +55,8 @@ public class UserDAO extends DBConnPool {
 		
 		return result;		
 	}
-	
-	// 이메일로 회원 정보 가져오는 메소드
-			public UserVO getUser(String email) {
-				UserVO uVo = null;
-				String sql = "select * from sitemember where email=?";
-				
-				try (Connection conn = new DBConnPool().con; // DBConnPool에서 커넥션 얻기
-				     PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-					pstmt.setString(1, email);
-					
-					try (ResultSet rs = pstmt.executeQuery()){
-					if (rs.next()) {
-						uVo = new UserVO();
-						uVo.setUno(rs.getInt("uno"));
-						uVo.setEmail(rs.getString("email"));
-						uVo.setJoindate(rs.getDate("joindate"));
-						uVo.setPw(rs.getString("pw"));
-						uVo.setName(rs.getString("name"));
-						uVo.setNickname(rs.getString("nickname"));
-						uVo.setUsertype(rs.getInt("usertype"));
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-				return uVo;
-		}
-		
-		
+	
 		// 이메일 중복 체크
 		public int confirmEmail(String email) {
 			int result = -1;
@@ -156,8 +128,8 @@ public class UserDAO extends DBConnPool {
 			return result;
 		}
 		
-		// 회원 정보 수정
-		public int updateUser(UserVO uVo) {
+		// 비밀번호 수정
+		public int updatePw(UserVO uVo) {
 			int result = -1;
 			String sql = "update sitemember set pw=? where email=?";
 			
@@ -175,5 +147,78 @@ public class UserDAO extends DBConnPool {
 			
 			return result;
 		}
+		
+		// 회원 정보 수정
+		public int updateUser(UserVO uVo) {
+			int result = -1;
+			String sql = "update sitemember set pw=?, "
+					+ "nickname=? where email=?";
+			
+			try (Connection conn = new DBConnPool().con; // DBConnPool에서 커넥션 얻기
+				 PreparedStatement pstmt = conn.prepareStatement(sql)){
+				
+				
+				pstmt.setString(1, uVo.getPw());
+				pstmt.setString(2, uVo.getNickname());
+				pstmt.setString(3, uVo.getEmail());
+				
+				result = pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
+		
+		// 이메일로 회원 정보 가져오는 메소드
+		public UserVO getUser(String email) {
+			UserVO uVo = null;
+			String sql = "select * from sitemember where email=?";
+						
+			try (Connection conn = new DBConnPool().con; // DBConnPool에서 커넥션 얻기
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+				pstmt.setString(1, email);
+							
+				try (ResultSet rs = pstmt.executeQuery()){
+					if (rs.next()) {
+						uVo = new UserVO();
+						uVo.setUno(rs.getInt("uno"));
+						uVo.setEmail(rs.getString("email"));
+						uVo.setJoindate(rs.getDate("joindate"));
+						uVo.setPw(rs.getString("pw"));
+						uVo.setName(rs.getString("name"));
+						uVo.setNickname(rs.getString("nickname"));
+						uVo.setUsertype(rs.getInt("usertype"));
+					}
+				}
+			} catch (Exception e) {
+					e.printStackTrace();
+		} 
+		return uVo;
+	}
+
+		
+		// 비밀번호와 닉네임, 이름을 이용하여 이메일 찾기 메소드
+		public String findEmail( String pw, String name, String nickname) {
+			String email = null;
+			String sql = "select email from sitemember where pw=? and name=? and nickname=?";
+						
+			try (Connection conn = new DBConnPool().con; // DBConnPool에서 커넥션 얻기
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+				pstmt.setString(1, pw); // 패스워드로 이메일 찾기
+				pstmt.setString(2, name);
+				pstmt.setString(3, nickname);
+							
+				try (ResultSet rs = pstmt.executeQuery()){
+					if (rs.next()) {
+						email= (rs.getString("email"));
+					}
+				}
+			} catch (Exception e) {
+					e.printStackTrace();
+		} 
+		return email;
+	}
 }

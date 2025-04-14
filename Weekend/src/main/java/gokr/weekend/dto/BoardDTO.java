@@ -11,7 +11,8 @@ public class BoardDTO {
     private String cpw;
     private String cofile;
     private String csfile;
-    
+    private int ctype;
+    private int replyCount;
     
 	public String getCno() {
 		return cno;
@@ -67,6 +68,22 @@ public class BoardDTO {
 	public void setCsfile(String csfile) {
 		this.csfile = csfile;
 	}
+	
+	public int getCtype() {
+	    return ctype;
+	}
 
+	public void setCtype(int ctype) {
+	    this.ctype = ctype;
+	}
+	
+	public int getReplyCount() {
+	    return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+	    this.replyCount = replyCount;
+	}
+	
 
 }

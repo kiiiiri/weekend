@@ -11,10 +11,11 @@
 <title>위캔드 | 웹진 작성</title>
 <link rel="icon" sizes="256x256" href="<%=contextPath%>/img/Logo_50.png" />
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=contextPath%>/css/Style.css" />
 <link rel="stylesheet" href="<%=contextPath%>/css/Webzinewrite.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 <script src="<%=contextPath%>/js/Nav.js"></script>
 </head>
 
@@ -75,17 +76,13 @@
      <!-- 버튼 영역 -->
 		<div class="flex justify-center items-center space-x-2 mt-6">
   			<button type="submit"
-          			class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600">
+          			class="bg-orange-500 text-white px-6 py-2 rounded-md hover:bg-orange-500">
     			등록
   			</button>
-  			<button type="reset"
-          			class="border px-4 py-2 rounded-md hover:bg-gray-100">
-    			초기화
- 			 </button>
   			<button type="button"
          		 onclick="location.href='<%= request.getContextPath() %>/webzine/list.do';"
-         		 class="border px-4 py-2 rounded-md hover:bg-gray-100">
-    			목록
+         		 class="border px-6 py-2 rounded-md hover:bg-gray-100">
+    			취소
   			</button>
 		</div>
       </div>

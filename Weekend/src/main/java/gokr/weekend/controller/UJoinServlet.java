@@ -32,7 +32,7 @@ public class UJoinServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/Join.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/UJoin.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -65,7 +65,7 @@ public class UJoinServlet extends HttpServlet {
 		} else {
 			request.setAttribute("message", "회원 가입에 실패했습니다.");
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/Login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/ULogin.jsp");
 		dispatcher.forward(request, response);
 	}
 

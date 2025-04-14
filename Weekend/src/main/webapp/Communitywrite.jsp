@@ -9,7 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <title>위캔드 | 게시글 작성</title>
-<link rel="icon" sizes="256x256" href="<%=contextPath%>/img/Logo_50.png" />
+<link rel="icon" sizes="256x256" href="<%=contextPath%>/img/Logo2_50.png" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=contextPath%>/css/Style.css" />
@@ -23,17 +24,17 @@
 
 <!-- 사이트 제목 -->
     <div class="site_title">
-      <div class="title_logo"><a href="#"></a></div>
-      <div class="title_wrap">WEEKEND</div>
+      <div class="title_logo2"><a href="#"></a></div>
+      <div class="title_wrap2">WEEKEND</div>
     </div>
     
     <!-- 네비게이션 바 (비로그인/로그인) -->
     <c:choose>
   <c:when test="${not empty sessionScope.loginUser}">
-    <jsp:include page="Header2.jsp" />
+    <jsp:include page="Header4.jsp" />
   </c:when>
   <c:otherwise>
-    <jsp:include page="Header.jsp" />
+    <jsp:include page="Header3.jsp" />
   </c:otherwise>
 </c:choose>
 
@@ -47,13 +48,17 @@
 
       <!-- 카테고리 선택 -->
 <div class="flex gap-4 mb-2">
-  <select name="category" class="border rounded-md p-2 w-1/4">
-    <option>카테고리 선택</option>
-    <option>여행지 추천</option>
-    <option>질문</option>
-    <option>후기</option>
-    <option>유용한 정보</option>
-    <option>가입인사</option>
+  <select name="ctype" class="border rounded-md p-2 w-1/4">
+    <option value="" disabled selected>카테고리 선택</option>
+    <option value="1">잡담</option>
+    <option value="2">질문</option>
+    <option value="3">후기</option>
+    <option value="4">여행지 추천</option>
+    <option value="6">유용한 정보</option>
+    <option value="7">가입인사</option>
+    	<c:if test="${not empty sessionScope.loginUser && (sessionScope.loginUser.usertype == 3)}">
+  			<option value="5">공지사항</option>
+	  	</c:if>
   </select>
 </div>
 
@@ -91,14 +96,10 @@
           			class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600">
     			등록
   			</button>
-  			<button type="reset"
-          			class="border px-4 py-2 rounded-md hover:bg-gray-100">
-    			초기화
- 			 </button>
   			<button type="button"
-         		 onclick="location.href='<%= request.getContextPath() %>/webzine/list.do';"
+         		 onclick="location.href='<%= request.getContextPath() %>/community/list.do';"
          		 class="border px-4 py-2 rounded-md hover:bg-gray-100">
-    			목록
+    			뒤로가기
   			</button>
 		</div>
       </div>

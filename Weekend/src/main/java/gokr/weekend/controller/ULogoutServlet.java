@@ -28,13 +28,16 @@ public class ULogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 세션 무효화
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-
-        // 메인 페이지로 리다이렉트
-        response.sendRedirect(request.getContextPath() + "/webzine/list.do?msg=logout");
+		HttpSession session = request.getSession();
+		session.invalidate(); // session 비활성. 모든 session attribute 삭제됨
+		//
+		
+		String from = request.getParameter("from"); //로그아웃 누른 페이지 출처
+		if ("community".equals(from)) {
+			response.sendRedirect(request.getContextPath() + "/community/list.do?msg=logout");
+		} else {
+			response.sendRedirect(request.getContextPath() + "/webzine/list.do?msg=logout");
+		}
 	}
 
 	/**
