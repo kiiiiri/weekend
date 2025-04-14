@@ -102,30 +102,32 @@ public class WebzineDAO extends DBConnPool{
 		    
 		 // 주어진 일련번호에 해당하는 게시물을 DTO에 담아 반환합니다.
 		    public WebzineDTO selectView(String wno) {
-		    	WebzineDTO dto = new WebzineDTO();  // DTO 객체 생성
-		        String query = "SELECT * FROM WEBZINE WHERE wno=?";  // 쿼리문 템플릿 준비
-		        try {
-		            psmt = con.prepareStatement(query);  // 쿼리문 준비
-		            psmt.setString(1, wno);  // 인파라미터 설정
-		            rs = psmt.executeQuery();  // 쿼리문 실행
+				WebzineDTO dto = new WebzineDTO();
+				String query = "SELECT w.*, s.nickname FROM WEBZINE w "
+										+ "JOIN SITEMEMBER s ON w.uno = s.uno "
+										+ "WHERE w.wno = ?";
+				try {
+						psmt = con.prepareStatement(query);
+						psmt.setString(1, wno);
+						rs = psmt.executeQuery();
 
-		            if (rs.next()) {  // 결과를 DTO 객체에 저장
-		                dto.setWno(rs.getString(1));
-		                dto.setWtitle(rs.getString(2));
-		                dto.setWtext(rs.getString(3));
-		                dto.setWwdate(rs.getDate(4));
-		                dto.setWviewcount(rs.getInt(5));
-		                dto.setWofile(rs.getString(6));
-		                dto.setWsfile(rs.getString(7));
-		                dto.setUno(rs.getString(8));
-		            }
-		        }
-		        catch (Exception e) {
-		            System.out.println("게시물 상세보기 중 예외 발생");
-		            e.printStackTrace();
-		        }
-		        return dto;  // 결과 반환
-		    }
+						if (rs.next()) {
+								dto.setWno(rs.getString(1));
+								dto.setWtitle(rs.getString(2));
+								dto.setWtext(rs.getString(3));
+								dto.setWwdate(rs.getDate(4));
+								dto.setWviewcount(rs.getInt(5));
+								dto.setWofile(rs.getString(6));
+								dto.setWsfile(rs.getString(7));
+								dto.setUno(rs.getString(8));
+								dto.setNickname(rs.getString(9));  // 닉네임 추가
+						}
+				} catch (Exception e) {
+						System.out.println("게시물 상세보기 중 예외 발생");
+						e.printStackTrace();
+				}
+				return dto;
+		}
 
 		    // 주어진 일련번호에 해당하는 게시물의 조회수를 1 증가시킵니다.
 		    public void updateVisitCount(String wno) {
@@ -141,6 +143,60 @@ public class WebzineDAO extends DBConnPool{
 		            System.out.println("게시물 조회수 증가 중 예외 발생");
 		            e.printStackTrace();
 		        }
+		    }
+		    
+		    
+		    //기사 정보 수정
+		    public int updatePost(WebzineDTO dto) {
+		        int result = 0;
+		        try {
+		            // 쿼리문 템플릿 준비
+		        	String query = "UPDATE webzine"
+		                    + " SET wtitle = ?,"
+		                    + "     wtext = ?,"
+		                    + "     wofile = CASE WHEN ? IS NULL OR ? = '' THEN wofile ELSE ? END,"
+		                    + "     wsfile = CASE WHEN ? IS NULL OR ? = '' THEN wsfile ELSE ? END"
+		                    + " WHERE wno = ?";
+
+		            // 쿼리문 준비
+		        	psmt = con.prepareStatement(query);
+		        	
+		        	psmt.setString(1, dto.getWtitle());
+		        	psmt.setString(2, dto.getWtext());
+		        	psmt.setString(3, dto.getWofile()); // CASE 조건용
+		        	psmt.setString(4, dto.getWofile()); // 공백 검사용
+		        	psmt.setString(5, dto.getWofile()); // 대입용
+
+		        	psmt.setString(6, dto.getWsfile());
+		        	psmt.setString(7, dto.getWsfile());
+		        	psmt.setString(8, dto.getWsfile());
+
+		        	psmt.setString(9, dto.getWno());
+
+		            // 쿼리문 실행
+		            result = psmt.executeUpdate();
+		        }
+		        catch (Exception e) {
+		            System.out.println("기사 수정 중 예외 발생");
+		            e.printStackTrace();
+		        }
+		        return result;
+		    }
+		    
+		    //기사 삭제
+		    public int deletePost(String wno) {
+		        int result = 0;
+		        try {
+		            String query = "DELETE FROM webzine WHERE wno=?";
+		            psmt = con.prepareStatement(query);
+		            psmt.setInt(1, Integer.parseInt(wno));
+		            result = psmt.executeUpdate();
+		        }
+		        catch (Exception e) {
+		            System.out.println("게시물 삭제 중 예외 발생");
+		            e.printStackTrace();
+		        }
+		        return result;
 		    }
 		    
 }
