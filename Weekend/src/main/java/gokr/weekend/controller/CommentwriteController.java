@@ -39,7 +39,7 @@ public class CommentwriteController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-        // 폼에서 넘어온 파라미터 받기
+        
         String rwuser = request.getParameter("rwuser");
         String rpw = request.getParameter("rpw");
         String rtext = request.getParameter("rtext");
@@ -47,18 +47,18 @@ public class CommentwriteController extends HttpServlet {
 
         int cno = Integer.parseInt(cnoStr);
 
-        // DTO 객체 생성
+        // dto 생성
         CommentsDTO dto = new CommentsDTO();
         dto.setRwuser(rwuser);
         dto.setRpw(rpw);
         dto.setRtext(rtext);
         dto.setCno(cno);
 
-        // DAO 호출해서 댓글 등록
+        // insertcomments()
         CommentsDAO dao = new CommentsDAO();
         int result = dao.insertComments(dto);
 
-        // 등록 성공 시 해당 게시글 상세 페이지로 리다이렉트
+        // 등록 성공 
         String redirectURL = request.getContextPath() + "/community/cview.do?cno=" + cno;
 
         response.sendRedirect(redirectURL);

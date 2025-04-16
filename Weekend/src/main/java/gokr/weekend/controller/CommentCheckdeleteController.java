@@ -40,7 +40,7 @@ public class CommentCheckdeleteController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		 // JSON 데이터 읽기
+		 // JSON 
         BufferedReader reader = req.getReader();
         Gson gson = new Gson();
 

@@ -104,7 +104,7 @@ public class CommentsDAO extends DBConnPool {
             try {
                 psmt = con.prepareStatement(query);
                 psmt.setInt(1, rno);
-                result = psmt.executeUpdate(); // 삭제 성공 여부 반환
+                result = psmt.executeUpdate(); // 
             } catch (Exception e) {
                 System.out.println("댓글 삭제 중 예외 발생");
                 e.printStackTrace();
