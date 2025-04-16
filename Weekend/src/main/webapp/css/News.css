@@ -1,0 +1,26 @@
+.photo_container .photo {
+  display: flex;
+  justify-content: center;  /* 가로 중앙 정렬 */
+  align-items: center;      /* 세로 중앙 정렬 */
+  height: 400px;            /* 원하는 높이 설정 */
+  position: relative;       /* 버튼을 절대 위치로 배치하기 위해 relative로 설정 */
+  margin-top: 170px;
+}
+
+.photo_container .photo img {
+  max-width: 100%;  /* 이미지가 컨테이너 너비에 맞게 크기 조정 */
+  max-height: 100%; /* 이미지가 컨테이너 높이에 맞게 크기 조정 */
+  object-fit: cover; /* 비율에 맞게 잘라서 채우기 */
+}
+
+/* 기사 */
+.article-content{
+  margin-left: 500px;
+  margin-top: 100px;
+}
+.article-title{
+  font-size: 50px;
+}
+.article-description{
+  font-size:20px;
+}

@@ -1,0 +1,196 @@
+body {
+  background-color: #f7f7f7;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+}
+
+#community_title {
+	margin: 25px auto 25px auto;
+	text-align: center;
+}
+.community_title_main {
+  font-size: 2.7rem;
+  font-family: "LINESeedKR-Bd";
+}
+.community_title_sub {
+  font-family: "Gyeonggi_Batang_Regular";
+  font-size: 1rem;
+  color: rgb(107, 105, 105);
+  /* font-weight: 600; */
+}
+
+.board_container {
+  max-width: 1000px;
+  margin: 60px auto 60px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.boardtable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.boardtable thead th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid #ccc;
+}
+.boardtable tbody td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+.boardtable tbody tr:hover {
+  background-color: #f2f2f2;
+}
+
+/* 페이징 버튼 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.pagination a {
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination a.active {
+  background-color: #e74c3c;
+}
+
+.pagination a.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.page_link {
+        padding: 4px 8px;
+        text-decoration: none;
+        background: black;
+        color: white;
+        border-radius: 4px;
+}
+
+.page_link.current {
+        background: palegreen;
+        color: black;
+}
+
+.page_link.endlink {
+        background: white;
+        color: black;
+        margin: 0 30px;
+        border: 1px solid lightgray;
+        padding: 2px 5px;
+}
+    
+.community_banner {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 10px;
+  /* overflow: hidden; */
+}
+
+.banner_img {
+  width: 100%;
+  display: block;
+}
+
+.search_box {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+}
+
+.search_form {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 8px 16px;
+  gap: 10px;
+}
+
+.search_select {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 6px;
+/*   border-right: 1px solid #ccc; */
+  outline: none;
+}
+
+.search_input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  padding: 6px 10px;
+}
+
+.search_btn {
+  background-color: rgb(102, 205, 170); /* 예시: 주황색 */
+  border: none;
+  color: white;
+  /* font-weight: bold; */
+  padding: 6px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search_btn:hover {
+  background-color: teal;
+}
+
+
+body.fixed-header-padding .site_title {
+  margin-top: 62px;
+}
+
+/* 글쓰기 버튼 */
+
+.write_btn_wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 20px 10px 20px;
+}
+
+.write_btn {
+  background-color: rgb(102, 205, 170);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.2s ease;
+}
+
+.write_btn:hover {
+  background-color: teal;
+}
+
+/* 페이징 버튼 중앙 정렬 */
+.pagination_wrap {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+

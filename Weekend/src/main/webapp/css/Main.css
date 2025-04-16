@@ -1,0 +1,196 @@
+.swiper {
+  width: 100%;
+  height: 620px;
+  padding: 0px 0px;
+}
+
+/* (각각의 슬라이드) */
+.swiper-slide {
+  width: 20%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+/* (각각의 슬라이드 안의 img) */
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 슬라이드 text */
+.overlay-text {
+  position: absolute;
+  bottom: 50px;
+  left: 20px;
+  color: white;
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  font-family: "LINESeedKR-Bd";
+}
+
+/* 검정 배경 */
+.slide_overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* 현재 슬라이드일 때는 배경 투명하게 */
+.swiper-slide-active .slide_overlay {
+  opacity: 0;
+}
+
+.swiper-wrapper {
+  transition-timing-function: ease-in-out;
+}
+
+/* Swiper 이미지 전체를 클릭 가능하게 만드는 a 링크 */
+.slide_link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Swiper 이미지 안에 있는 이미지 설정 */
+.slide_link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+/* 이미지 위에 텍스트는 기존 overlay-text 사용 */
+.slide_link .overlay-text {
+  position: absolute;
+  bottom: 50px;
+  left: 20px;
+  color: white;
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  font-family: "LINESeedKR-Bd";
+}
+
+/* 최신 기사 소개 css */
+#recentwebzine_container {
+  max-width: 1200px;
+  margin: 30px auto 0 auto;
+  /* height: 1800px; */
+}
+#recentwebzine_title {
+  margin-bottom: 30px;
+}
+.webzine_title_main {
+  font-size: 2.7rem;
+  font-family: "LINESeedKR-Bd";
+}
+.webzine_title_sub {
+  font-family: "Gyeonggi_Batang_Regular";
+  font-size: 1rem;
+  color: rgb(107, 105, 105);
+  /* font-weight: 600; */
+}
+
+/* 최신 기사 css */
+.recentwebzine_contents {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 20px 10px;
+  border-bottom: 1.5px solid #eee;
+}
+.contents_left {
+  flex: 1;
+  display: flex;
+}
+
+.thumbnail {
+  width: 170px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.contents_right {
+  flex: 4;
+  max-width: 85%;
+  position: relative;
+  height: 200px;
+}
+
+.contents_right h2 {
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: "LINESeedKR-Bd";
+}
+
+.contents_right .webzine_date {
+  font-size: 0.85rem;
+  color: rgba(133, 120, 120, 0.973);
+  margin-top: 15px;
+}
+
+.contents_right .webzine_writer {
+  font-size: 0.95rem;
+  color: black;
+  margin-top: 15px;
+}
+
+.contents_right .webzine_viewcount {
+  font-size: 0.85rem;
+  margin-top: 15px;
+  font-family: "GowunDodum-Regular";
+  color: rgb(107, 105, 105);
+}
+
+.contents_right .webzine_link {
+  position: absolute;
+  text-decoration: none !important;
+  color: rgb(255, 115, 0);
+  font-weight: 600;
+  font-size: 0.85rem;
+  bottom: 5px;
+  font-family: "GowunDodum-Regular";
+}
+.webzine_writebutton_wrap {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.webzine_writebutton {
+  color: black;
+  background-color: rgb(252, 173, 3);
+  border-radius: 6px;
+  border: none;
+  padding: 5px 10px;
+  font-family: "LINESeedKR-Bd";
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+body.fixed-header-padding .site_title {
+  margin-top: 62px;
+}

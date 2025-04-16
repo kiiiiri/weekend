@@ -1,0 +1,323 @@
+@charset "UTF-8";
+
+
+/* 기본 세팅 */
+* {margin: 0; padding: 0;}
+body {background-color: rgb(255, 255, 255);}
+h2 { color: rgb(59, 59, 59);}
+
+/***************************** 로그인 ********************************/
+/* 로그인 페이지 */
+#page_login_container{
+    width: 800px;
+    margin: 0 auto;
+}
+
+/* 뒤로가기 버튼 */
+#back_icon {
+    margin: 100px 0 10px 0;
+}
+
+#back_icon>a {
+    font-size: 30px;
+    color: rgb(26, 26, 26); 
+}
+
+/* 로그인 폼 */
+#login_container {
+    display:flex; 
+    flex-direction: column;
+    justify-content:center; 
+    align-items:center; 
+    width:460px; 
+    margin:0 auto;
+}
+
+/* 로그인 로고 */
+#login_header {
+    margin-bottom: 30px;
+}
+#login_header>h2 {
+    font-size: 40px;
+}
+
+#login_header>#login_h_color {
+    text-align: center;
+    color: #ff874d;
+}
+
+/*  */
+.login_inner {
+    margin-bottom: 30px;
+    display : flex;
+    flex-direction: column;
+}
+
+.login_inner h2 {
+    text-align: center;
+}
+
+.login_inner input{
+    width: 300px;
+    height: 35px;
+}
+
+#login_input>input{
+    margin-bottom: 10px;
+}
+
+/* 로그인 버튼 */
+#sign_btn {
+    border: none;
+    border-radius: 10px;
+    background-color: #ff874d;
+    color: white;
+    font-weight: 700;
+}
+
+.login_other {
+    display: flex;
+    justify-content: center;
+}
+
+.login_other a {
+    color: rgb(29, 29, 29);
+    margin: 0 10px;
+    font-size: 12px;
+    
+}
+
+.login_other span{
+    font-size: 12px;
+}
+
+
+
+/***************************** 회원가입 ********************************/
+/* 회원가입 페이지 */
+.page_join_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* 헤더 텍스트 필드 */
+.join_header {
+    display: flex;
+    margin : 50px 0 30px 0;
+    text-align: center;
+}
+
+.join_header h2 {
+    font-size: 30px;
+    margin-bottom: 5px;
+    white-space: pre-wrap;
+}
+
+.join_color_text {
+    color: #ff874d;
+}
+
+.page_join_container>form {
+    border: 1px solid rgb(131, 131, 131);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.join_inner {
+    margin: 30px;
+}
+
+.join_in_textbox {
+    margin: 15px;
+}
+
+.join_text {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.join_input {
+    width: 400px;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid rgb(105, 105, 105);
+}
+
+.join_input:focus {
+    outline: none;
+    border: 2px solid #ff874d;
+    border-radius: 5px;
+}
+
+.join_input_container {
+    position: relative;
+}
+
+.join_dup_btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%); /* 수직 중앙 정렬 */
+    border: none;
+    background-color: #ff874d;
+    color: white;
+    font-weight: bolder;
+    font-size: 11px;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/* 기자 확인 */
+.join_reporter {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* 토글 버튼 기본 스타일 */
+    .toggle-btn {
+        display: inline-block;
+        width: 40px;
+        height: 20px;
+        margin-left: 5px;
+        background-color: #ccc;
+        border-radius: 15px;
+        position: relative;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* 토글 버튼 안의 원 */
+    .toggle-btn::before {
+        content: '';
+        position: absolute;
+        top: 1px;
+        left: 3px;
+        width: 18px;
+        height: 18px;
+        background-color: white;
+        border-radius: 50%;
+        transition: left 0.3s ease;
+    }
+
+    /* on 상태일 때의 스타일 */
+    .toggle-btn.on {
+        background-color: #ff874d;
+    }
+
+    .toggle-btn.on::before {
+        left: 25px; /* 오른쪽으로 이동 */
+    }
+
+
+.join_btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.join_btn>input {
+    width: 400px;
+    border: none;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #ff874d;
+    color: white;
+    font-weight: 700;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+/* 비밀번호 찾기 */
+.findpw_container {
+    display: flex;
+    width: 500px;
+    margin: 50px auto;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+/***************************** 이메일, 비밀번호 중복 검사 창 *****************************************/
+
+.check_body{
+  background-color: #ff874d;
+  width: 450px;
+  height: 200px;
+}
+
+.check_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 30px;
+  background-color: white;
+}
+
+.check_header {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.check_form {
+  margin-bottom: 20px;
+}
+
+.cancel {
+  border : none;
+  background-color: #ff874d;
+  border-radius: 5px;
+  color: white;
+  width: 50px;
+  height: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/********************** 마이페이지 ********************/
+
+/* 기본 설정 */
+.mypage_container {
+    display: flex;  
+    flex-direction: column; 
+    padding: 100px; 
+}
+
+/* 로그인하지 않았을 때 mypage_container를 숨기기 */
+.mypage_container.hidden {
+    display: none;
+}
+
+.mypage_title h2{
+    margin-bottom: 30px;
+    font-size: 50px;
+}
+
+.mypage_inner {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    
+}
+
+.mypage_inner p {
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.mypage_inner input {
+    width: 300px;
+    height: 40px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: rgb(255, 117, 93);
+    cursor: pointer;
+    margin-bottom: 20px
+}
